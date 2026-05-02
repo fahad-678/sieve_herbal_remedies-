@@ -1,10 +1,16 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import '../models/ailment.dart';
 import '../models/herb.dart';
+import '../models/preparation.dart';
+import '../data/ailments_data.dart';
 import '../data/herbs_data.dart';
+import '../data/preparations_data.dart';
 import '../theme/app_colors.dart';
 import '../utils/storage.dart';
+import 'ailment_detail_screen.dart';
 import 'herb_detail_screen.dart';
+import 'preparation_detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -48,6 +54,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final featuredHerbs = HerbsData.getFeaturedHerbs().take(5).toList();
+    final ailments = AilmentsData.ailments;
+    final preparations = PreparationsData.getAllPreparations();
     final herbOfDay = HerbsData.getHerbById('chamomile');
 
     return Scaffold(
@@ -157,7 +165,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => HerbDetailScreen(herbId: herbOfDay.id),
+                                  builder: (context) =>
+                                      HerbDetailScreen(herbId: herbOfDay.id),
                                 ),
                               ).then((_) => _loadFavorites());
                             },
@@ -203,10 +212,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                             width: double.infinity,
                                             height: 200,
                                             fit: BoxFit.cover,
-                                            opacity: const AlwaysStoppedAnimation(0.4),
-                                            errorBuilder: (context, error, stackTrace) {
+                                            opacity:
+                                                const AlwaysStoppedAnimation(
+                                                    0.4),
+                                            errorBuilder:
+                                                (context, error, stackTrace) {
                                               return Container(
-                                                color: AppColors.primary.withOpacity(0.3),
+                                                color: AppColors.primary
+                                                    .withOpacity(0.3),
                                                 child: const Icon(
                                                   Icons.local_florist,
                                                   size: 64,
@@ -222,7 +235,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                               begin: Alignment.topCenter,
                                               end: Alignment.bottomCenter,
                                               colors: [
-                                                AppColors.primary.withOpacity(0.6),
+                                                AppColors.primary
+                                                    .withOpacity(0.6),
                                                 AppColors.primary,
                                               ],
                                             ),
@@ -237,10 +251,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                               vertical: 8,
                                             ),
                                             decoration: BoxDecoration(
-                                              color: AppColors.background.withOpacity(0.9),
-                                              borderRadius: BorderRadius.circular(20),
+                                              color: AppColors.background
+                                                  .withOpacity(0.9),
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
                                               border: Border.all(
-                                                color: AppColors.primary.withOpacity(0.2),
+                                                color: AppColors.primary
+                                                    .withOpacity(0.2),
                                               ),
                                             ),
                                             child: Row(
@@ -270,7 +287,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Padding(
                                     padding: const EdgeInsets.all(28),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           herbOfDay.name,
@@ -287,7 +305,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           style: TextStyle(
                                             fontSize: 14,
                                             fontStyle: FontStyle.italic,
-                                            color: Colors.white.withOpacity(0.7),
+                                            color:
+                                                Colors.white.withOpacity(0.7),
                                           ),
                                         ),
                                         const SizedBox(height: 16),
@@ -295,17 +314,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                           herbOfDay.briefDescription,
                                           style: TextStyle(
                                             fontSize: 15,
-                                            color: Colors.white.withOpacity(0.9),
+                                            color:
+                                                Colors.white.withOpacity(0.9),
                                             height: 1.5,
                                           ),
                                         ),
                                         const SizedBox(height: 24),
                                         Container(
                                           width: double.infinity,
-                                          padding: const EdgeInsets.symmetric(vertical: 16),
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 16),
                                           decoration: BoxDecoration(
                                             color: AppColors.accent,
-                                            borderRadius: BorderRadius.circular(20),
+                                            borderRadius:
+                                                BorderRadius.circular(20),
                                           ),
                                           child: const Text(
                                             'Discover Now',
@@ -388,7 +410,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       'Begin your day with warm lemon water and fresh ginger to gently awaken digestion and strengthen natural immunity.',
                                       style: TextStyle(
                                         fontSize: 14,
-                                        color: AppColors.foreground.withOpacity(0.8),
+                                        color: AppColors.foreground
+                                            .withOpacity(0.8),
                                         height: 1.5,
                                       ),
                                     ),
@@ -400,7 +423,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         const SizedBox(height: 28),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 16),
                           decoration: BoxDecoration(
                             color: AppColors.inputBackground,
                             border: Border.all(
@@ -422,7 +446,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   'Search herbs, ailments & preparations...',
                                   style: TextStyle(
                                     fontSize: 15,
-                                    color: AppColors.mutedForeground.withOpacity(0.7),
+                                    color: AppColors.mutedForeground
+                                        .withOpacity(0.7),
                                   ),
                                 ),
                               ),
@@ -447,15 +472,22 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           child: Row(
                             children: [
-                              _buildTab('Herbs'),
-                              _buildTab('Ailments'),
-                              _buildTab('Preparations'),
+                              _buildTab(label: 'Herbs', tabKey: 'herbs'),
+                              _buildTab(label: 'Ailments', tabKey: 'ailments'),
+                              _buildTab(
+                                label: 'Preparations',
+                                tabKey: 'preparations',
+                              ),
                             ],
                           ),
                         ),
                         const SizedBox(height: 20),
                         Text(
-                          'Popular Herbs',
+                          _activeTab == 'herbs'
+                              ? 'Popular Herbs'
+                              : _activeTab == 'ailments'
+                                  ? 'Common Ailments'
+                                  : 'Preparation Methods',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
@@ -472,14 +504,36 @@ class _HomeScreenState extends State<HomeScreen> {
                   sliver: SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
+                        if (_activeTab == 'ailments') {
+                          final ailment = ailments[index];
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 16),
+                            child: _buildAilmentCard(ailment),
+                          );
+                        }
+
+                        if (_activeTab == 'preparations') {
+                          final preparation = preparations[index];
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 16),
+                            child: _buildPreparationCard(preparation),
+                          );
+                        }
+
                         final herb = featuredHerbs[index];
-                        final isFavorite = _favoriteHerbs.contains(herb.id);
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 16),
-                          child: _buildHerbCard(herb, isFavorite),
+                          child: _buildHerbCard(
+                            herb,
+                            _favoriteHerbs.contains(herb.id),
+                          ),
                         );
                       },
-                      childCount: featuredHerbs.length,
+                      childCount: _activeTab == 'ailments'
+                          ? ailments.length
+                          : _activeTab == 'preparations'
+                              ? preparations.length
+                              : featuredHerbs.length,
                     ),
                   ),
                 ),
@@ -494,13 +548,13 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildTab(String label) {
-    final isSelected = _activeTab == label.toLowerCase();
+  Widget _buildTab({required String label, required String tabKey}) {
+    final isSelected = _activeTab == tabKey;
     return Expanded(
       child: GestureDetector(
         onTap: () {
           setState(() {
-            _activeTab = label.toLowerCase();
+            _activeTab = tabKey;
           });
         },
         child: Container(
@@ -527,6 +581,182 @@ class _HomeScreenState extends State<HomeScreen> {
               color: isSelected ? Colors.white : AppColors.mutedForeground,
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAilmentCard(Ailment ailment) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => AilmentDetailScreen(ailmentId: ailment.id),
+          ),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.all(18),
+        decoration: BoxDecoration(
+          color: AppColors.card,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: AppColors.border),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    ailment.name,
+                    style: const TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.foreground,
+                    ),
+                  ),
+                ),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: AppColors.chart3.withOpacity(0.15),
+                    borderRadius: BorderRadius.circular(999),
+                  ),
+                  child: Text(
+                    ailment.severity,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.chart3,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Text(
+              ailment.description,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 13,
+                color: AppColors.mutedForeground.withOpacity(0.9),
+                height: 1.45,
+              ),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              ailment.symptoms.isNotEmpty
+                  ? 'Common symptom: ${ailment.symptoms.first}'
+                  : '',
+              style: const TextStyle(
+                fontSize: 13,
+                color: AppColors.primary,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPreparationCard(Preparation preparation) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PreparationDetailScreen(
+              preparationId: preparation.id,
+            ),
+          ),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.all(18),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              AppColors.card,
+              AppColors.card.withOpacity(0.45),
+            ],
+          ),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: AppColors.border),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    preparation.name,
+                    style: const TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.foreground,
+                    ),
+                  ),
+                ),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: AppColors.primary.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(999),
+                  ),
+                  child: Text(
+                    preparation.timeLabel,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.primary,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Text(
+              preparation.description,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 13,
+                color: AppColors.mutedForeground.withOpacity(0.9),
+                height: 1.45,
+              ),
+            ),
+            const SizedBox(height: 14),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: preparation.bestFor.take(3).map((tag) {
+                return Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  decoration: BoxDecoration(
+                    color: AppColors.secondary.withOpacity(0.5),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Text(
+                    tag,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: AppColors.mutedForeground,
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+          ],
         ),
       ),
     );
@@ -645,7 +875,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      herb.primaryBenefits.isNotEmpty ? herb.primaryBenefits[0] : '',
+                      herb.primaryBenefits.isNotEmpty
+                          ? herb.primaryBenefits[0]
+                          : '',
                       style: const TextStyle(
                         fontSize: 13,
                         color: AppColors.primary,

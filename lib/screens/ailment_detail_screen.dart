@@ -1,11 +1,38 @@
 import 'package:flutter/material.dart';
+import '../data/ailments_data.dart';
+import '../data/herbs_data.dart';
+import '../models/herb.dart';
 import '../theme/app_colors.dart';
+import 'herb_detail_screen.dart';
 
 class AilmentDetailScreen extends StatelessWidget {
-  const AilmentDetailScreen({super.key});
+  final String ailmentId;
+
+  const AilmentDetailScreen({
+    super.key,
+    required this.ailmentId,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final ailment = AilmentsData.getAilmentById(ailmentId);
+
+    if (ailment == null) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('Ailment Not Found'),
+        ),
+        body: const Center(
+          child: Text('Ailment not found'),
+        ),
+      );
+    }
+
+    final recommendedHerbs = ailment.recommendedHerbIds
+        .map(HerbsData.getHerbById)
+        .whereType<Herb>()
+        .toList();
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
@@ -34,9 +61,9 @@ class AilmentDetailScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 24),
-                    const Text(
-                      'Tension Headache',
-                      style: TextStyle(
+                    Text(
+                      ailment.name,
+                      style: const TextStyle(
                         fontSize: 36,
                         fontWeight: FontWeight.w600,
                         color: AppColors.primary,
@@ -65,7 +92,7 @@ class AilmentDetailScreen extends StatelessWidget {
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            'MODERATE',
+                            ailment.severity.toUpperCase(),
                             style: TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w600,
@@ -79,29 +106,89 @@ class AilmentDetailScreen extends StatelessWidget {
                     const SizedBox(height: 24),
                     _buildCard(
                       title: 'Description',
-                      content: 'Tension headaches are the most common type of headache, characterized by a dull, aching pain and tightness across the forehead, temples, or back of the head and neck.',
+                      content: ailment.description,
                     ),
                     const SizedBox(height: 16),
                     _buildListCard(
                       title: 'Common Symptoms',
-                      items: [
-                        'Dull, aching head pain on both sides',
-                        'Tight band-like pressure around the forehead',
-                        'Tenderness in scalp, neck, and shoulder muscles',
-                        'Mild to moderate pain (not throbbing)',
-                      ],
+                      items: ailment.symptoms,
                     ),
                     const SizedBox(height: 16),
                     _buildListCard(
                       title: 'Lifestyle Support',
-                      items: [
-                        'Practice regular stress-reduction techniques',
-                        'Maintain good posture throughout the day',
-                        'Stay hydrated and eat balanced meals',
-                        'Take regular breaks from screens',
-                      ],
+                      items: ailment.lifestyleTips,
                       isPrimary: true,
                     ),
+                    const SizedBox(height: 16),
+                    _buildListCard(
+                      title: 'When To Seek Medical Care',
+                      items: ailment.redFlags,
+                      isWarning: true,
+                    ),
+                    if (recommendedHerbs.isNotEmpty) ...[
+                      const SizedBox(height: 16),
+                      Container(
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: AppColors.card,
+                          borderRadius: BorderRadius.circular(24),
+                          border: Border.all(color: AppColors.border),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Recommended Herbs',
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.foreground,
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            Wrap(
+                              spacing: 10,
+                              runSpacing: 10,
+                              children: recommendedHerbs.map((herb) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => HerbDetailScreen(
+                                          herbId: herb.id,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 14,
+                                      vertical: 10,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color:
+                                          AppColors.secondary.withOpacity(0.5),
+                                      borderRadius: BorderRadius.circular(12),
+                                      border:
+                                          Border.all(color: AppColors.border),
+                                    ),
+                                    child: Text(
+                                      herb.name,
+                                      style: const TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w500,
+                                        color: AppColors.primary,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ],
                 ),
               ),
@@ -163,26 +250,48 @@ class AilmentDetailScreen extends StatelessWidget {
     required String title,
     required List<String> items,
     bool isPrimary = false,
+    bool isWarning = false,
   }) {
+    final primaryColors = [
+      AppColors.primary.withOpacity(0.1),
+      AppColors.primary.withOpacity(0.05),
+    ];
+
+    final warningColors = [
+      const Color(0xFFFFF1F1),
+      const Color(0xFFFFFAFA),
+    ];
+
+    final defaultColors = [
+      AppColors.card,
+      AppColors.card.withOpacity(0.4),
+    ];
+
+    final cardColors = isWarning
+        ? warningColors
+        : isPrimary
+            ? primaryColors
+            : defaultColors;
+
+    final accentColor = isWarning
+        ? const Color(0xFFC84B4B)
+        : isPrimary
+            ? AppColors.primary
+            : AppColors.foreground;
+
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: isPrimary
-              ? [
-                  AppColors.primary.withOpacity(0.1),
-                  AppColors.primary.withOpacity(0.05),
-                ]
-              : [
-                  AppColors.card,
-                  AppColors.card.withOpacity(0.4),
-                ],
+          colors: cardColors,
         ),
         borderRadius: BorderRadius.circular(24),
         border: Border.all(
-          color: isPrimary ? AppColors.primary.withOpacity(0.2) : AppColors.border,
+          color: isPrimary || isWarning
+              ? accentColor.withOpacity(0.2)
+              : AppColors.border,
         ),
         boxShadow: [
           BoxShadow(
@@ -195,24 +304,13 @@ class AilmentDetailScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              if (isPrimary)
-                Icon(
-                  Icons.auto_awesome,
-                  color: AppColors.primary,
-                  size: 20,
-                ),
-              if (isPrimary) const SizedBox(width: 12),
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w600,
-                  color: isPrimary ? AppColors.primary : AppColors.foreground,
-                ),
-              ),
-            ],
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.w600,
+              color: accentColor,
+            ),
           ),
           const SizedBox(height: 12),
           ...items.map((item) => Padding(
@@ -225,7 +323,7 @@ class AilmentDetailScreen extends StatelessWidget {
                       height: 8,
                       margin: const EdgeInsets.only(top: 8),
                       decoration: BoxDecoration(
-                        color: isPrimary ? AppColors.primary : AppColors.primary,
+                        color: accentColor,
                         shape: BoxShape.circle,
                       ),
                     ),
@@ -235,9 +333,7 @@ class AilmentDetailScreen extends StatelessWidget {
                         item,
                         style: TextStyle(
                           fontSize: 14,
-                          color: isPrimary
-                              ? AppColors.primary.withOpacity(0.9)
-                              : AppColors.foreground.withOpacity(0.85),
+                          color: accentColor.withOpacity(0.9),
                           height: 1.5,
                         ),
                       ),
