@@ -186,10 +186,10 @@ class _TrackerScreenState extends State<TrackerScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
+                        const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               'Remedy Tracker',
                               style: TextStyle(
                                 fontSize: 32,
@@ -197,7 +197,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                                 color: AppColors.primary,
                               ),
                             ),
-                            const SizedBox(height: 4),
+                            SizedBox(height: 4),
                             Text(
                               'Monitor your herbal wellness journey',
                               style: TextStyle(
@@ -313,7 +313,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                           ),
                         ),
                         const SizedBox(height: 12),
-                        Text(
+                        const Text(
                           'Start tracking your herbal remedy intake\nto monitor patterns and support your\nwellness journey',
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -339,7 +339,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                               color: AppColors.primary.withOpacity(0.2),
                             ),
                           ),
-                          child: Text(
+                          child: const Text(
                             'Tap the + button below to add\nyour first remedy log',
                             textAlign: TextAlign.center,
                             style: TextStyle(

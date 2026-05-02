@@ -2,7 +2,7 @@ import '../models/preparation.dart';
 
 class PreparationsData {
   static final Map<String, Preparation> preparations = {
-    'tea-infusion': Preparation(
+    'tea-infusion': const Preparation(
       id: 'tea-infusion',
       name: 'Tea Infusion',
       description: 'A gentle method for extracting delicate herbal properties using hot water.',
@@ -21,7 +21,7 @@ class PreparationsData {
         'For iced tea, double the herb amount and steep as usual, then pour over ice',
       ],
     ),
-    'tincture': Preparation(
+    'tincture': const Preparation(
       id: 'tincture',
       name: 'Tincture',
       description: 'A concentrated herbal extract made by soaking herbs in alcohol or glycerin.',
@@ -40,7 +40,7 @@ class PreparationsData {
         'Store finished tinctures in amber bottles away from light',
       ],
     ),
-    'salve': Preparation(
+    'salve': const Preparation(
       id: 'salve',
       name: 'Salve',
       description: 'A topical herbal preparation made with infused oil and beeswax.',
@@ -59,7 +59,7 @@ class PreparationsData {
         'Store in tins or jars away from heat',
       ],
     ),
-    'compress': Preparation(
+    'compress': const Preparation(
       id: 'compress',
       name: 'Compress',
       description: 'A cloth soaked in strong herbal infusion and applied to the skin.',
@@ -78,7 +78,7 @@ class PreparationsData {
         'Alternate hot and cold for circulation support',
       ],
     ),
-    'decoction': Preparation(
+    'decoction': const Preparation(
       id: 'decoction',
       name: 'Decoction',
       description: 'A simmering method for extracting properties from hard plant materials.',
@@ -97,7 +97,7 @@ class PreparationsData {
         'Store in refrigerator for up to 2 days',
       ],
     ),
-    'poultice': Preparation(
+    'poultice': const Preparation(
       id: 'poultice',
       name: 'Poultice',
       description: 'Fresh or dried herbs applied directly to the skin for topical benefit.',
@@ -116,7 +116,7 @@ class PreparationsData {
         'Change every few hours if needed',
       ],
     ),
-    'herbal-oil': Preparation(
+    'herbal-oil': const Preparation(
       id: 'herbal-oil',
       name: 'Herbal Oil',
       description: 'Herbs infused in carrier oil for topical massage and skin care.',
@@ -135,7 +135,7 @@ class PreparationsData {
         'Store finished oil in cool dark place',
       ],
     ),
-    'syrup': Preparation(
+    'syrup': const Preparation(
       id: 'syrup',
       name: 'Herbal Syrup',
       description: 'A sweet herbal preparation combining decoction with honey or sugar.',

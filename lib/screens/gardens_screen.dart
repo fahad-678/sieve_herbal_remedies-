@@ -76,10 +76,10 @@ class _GardensScreenState extends State<GardensScreen> {
                   ],
                 ),
               ),
-              child: Column(
+              child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Nearby Herb Gardens',
                     style: TextStyle(
                       fontSize: 32,
@@ -88,7 +88,7 @@ class _GardensScreenState extends State<GardensScreen> {
                       height: 1,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: 4),
                   Text(
                     'Discover local botanical spaces',
                     style: TextStyle(
@@ -239,7 +239,7 @@ class _GardensScreenState extends State<GardensScreen> {
                             color: AppColors.border.withOpacity(0.5),
                           ),
                         ),
-                        child: Text(
+                        child: const Text(
                           'Interactive Map View',
                           style: TextStyle(
                             fontSize: 10,
@@ -343,7 +343,7 @@ class _GardensScreenState extends State<GardensScreen> {
                     const SizedBox(height: 16),
                     Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.location_on,
                           size: 16,
                           color: AppColors.primary,
@@ -389,9 +389,9 @@ class _GardensScreenState extends State<GardensScreen> {
                           ),
                           elevation: 0,
                         ),
-                        child: Row(
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children: [
                             Icon(Icons.navigation, size: 20),
                             SizedBox(width: 8),
                             Text(

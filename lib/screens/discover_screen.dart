@@ -108,7 +108,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       'Discover',
                       style: TextStyle(
                         fontSize: 32,

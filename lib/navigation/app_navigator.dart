@@ -29,7 +29,7 @@ class _AppNavigatorState extends State<AppNavigator> {
     return Scaffold(
       body: _screens[_currentIndex],
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           border: Border(
             top: BorderSide(color: AppColors.border, width: 1),
           ),

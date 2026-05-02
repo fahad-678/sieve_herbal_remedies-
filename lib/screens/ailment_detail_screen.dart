@@ -85,7 +85,7 @@ class AilmentDetailScreen extends StatelessWidget {
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.show_chart,
                             color: AppColors.chart3,
                             size: 16,
@@ -93,7 +93,7 @@ class AilmentDetailScreen extends StatelessWidget {
                           const SizedBox(width: 8),
                           Text(
                             ailment.severity.toUpperCase(),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w600,
                               color: AppColors.chart3,

@@ -134,7 +134,7 @@ class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    Text(
+                    const Text(
                       'Traditional preparation method',
                       style: TextStyle(
                         fontSize: 15,
@@ -298,7 +298,7 @@ class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
                                             : _isRunning
                                                 ? 'Steeping now...'
                                                 : 'Paused',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 14,
                                           color: AppColors.mutedForeground,
                                           letterSpacing: 0.5,
@@ -469,15 +469,15 @@ class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
+                          const Row(
                             children: [
                               Icon(
                                 Icons.auto_awesome,
                                 color: AppColors.primary,
                                 size: 20,
                               ),
-                              const SizedBox(width: 12),
-                              const Text(
+                              SizedBox(width: 12),
+                              Text(
                                 'Pro Tips',
                                 style: TextStyle(
                                   fontSize: 16,

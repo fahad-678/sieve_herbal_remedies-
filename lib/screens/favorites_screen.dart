@@ -63,7 +63,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                   const SizedBox(height: 4),
                   Text(
                     '${favoriteHerbs.length} saved herbs',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 14,
                       color: AppColors.mutedForeground,
                     ),
@@ -73,7 +73,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             ),
             Expanded(
               child: favoriteHerbs.isEmpty
-                  ? Center(
+                  ? const Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -82,7 +82,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                             size: 64,
                             color: AppColors.muted,
                           ),
-                          const SizedBox(height: 16),
+                          SizedBox(height: 16),
                           Text(
                             'No favorites yet',
                             style: TextStyle(
@@ -91,7 +91,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                               color: AppColors.muted,
                             ),
                           ),
-                          const SizedBox(height: 8),
+                          SizedBox(height: 8),
                           Text(
                             'Tap the heart icon to save herbs',
                             style: TextStyle(

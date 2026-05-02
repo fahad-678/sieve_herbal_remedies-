@@ -133,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                             const SizedBox(width: 12),
-                            Column(
+                            const Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
@@ -145,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     height: 1,
                                   ),
                                 ),
-                                const SizedBox(height: 4),
+                                SizedBox(height: 4),
                                 Text(
                                   'Herbal Remedies',
                                   style: TextStyle(
@@ -194,8 +194,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 children: [
                                   Container(
                                     height: 200,
-                                    decoration: BoxDecoration(
-                                      borderRadius: const BorderRadius.only(
+                                    decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(28),
                                         topRight: Radius.circular(28),
                                       ),
@@ -260,14 +260,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     .withOpacity(0.2),
                                               ),
                                             ),
-                                            child: Row(
+                                            child: const Row(
                                               children: [
                                                 Icon(
                                                   Icons.auto_awesome,
                                                   size: 16,
                                                   color: AppColors.primary,
                                                 ),
-                                                const SizedBox(width: 8),
+                                                SizedBox(width: 8),
                                                 Text(
                                                   'HERB OF THE DAY',
                                                   style: TextStyle(
@@ -397,7 +397,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       'Daily Wellness Tip',
                                       style: TextStyle(
                                         fontSize: 16,
@@ -488,7 +488,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               : _activeTab == 'ailments'
                                   ? 'Common Ailments'
                                   : 'Preparation Methods',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
                             color: AppColors.foreground,
@@ -797,8 +797,8 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               width: 112,
               height: 112,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(24),
                   bottomLeft: Radius.circular(24),
                 ),
@@ -855,7 +855,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           child: Text(
                             herb.category,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 10,
                               fontWeight: FontWeight.w500,
                               color: AppColors.primary,

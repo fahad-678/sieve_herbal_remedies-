@@ -2,7 +2,7 @@ import '../models/herb.dart';
 
 class HerbsData {
   static final List<Herb> herbs = [
-    Herb(
+    const Herb(
       id: 'ashwagandha',
       name: 'Ashwagandha',
       scientificName: 'Withania somnifera',
@@ -31,7 +31,7 @@ class HerbsData {
       imageUrl: 'assets/images/ashwagandha.jpg',
       isFeatured: true,
     ),
-    Herb(
+    const Herb(
       id: 'turmeric',
       name: 'Turmeric',
       scientificName: 'Curcuma longa',
@@ -60,7 +60,7 @@ class HerbsData {
       imageUrl: 'assets/images/turmeric.jpg',
       isFeatured: true,
     ),
-    Herb(
+    const Herb(
       id: 'lavender',
       name: 'Lavender',
       scientificName: 'Lavandula angustifolia',
@@ -89,7 +89,7 @@ class HerbsData {
       imageUrl: 'assets/images/lavender.jpg',
       isFeatured: true,
     ),
-    Herb(
+    const Herb(
       id: 'peppermint',
       name: 'Peppermint',
       scientificName: 'Mentha piperita',
@@ -118,7 +118,7 @@ class HerbsData {
       imageUrl: 'assets/images/peppermint.jpg',
       isFeatured: true,
     ),
-    Herb(
+    const Herb(
       id: 'ginger',
       name: 'Ginger',
       scientificName: 'Zingiber officinale',
@@ -147,7 +147,7 @@ class HerbsData {
       imageUrl: 'assets/images/ginger.jpg',
       isFeatured: false,
     ),
-    Herb(
+    const Herb(
       id: 'chamomile',
       name: 'Chamomile',
       scientificName: 'Matricaria chamomilla',
@@ -176,7 +176,7 @@ class HerbsData {
       imageUrl: 'assets/images/chamomile.jpg',
       isFeatured: true,
     ),
-    Herb(
+    const Herb(
       id: 'echinacea',
       name: 'Echinacea',
       scientificName: 'Echinacea purpurea',
@@ -205,7 +205,7 @@ class HerbsData {
       imageUrl: 'assets/images/echinacea.jpg',
       isFeatured: false,
     ),
-    Herb(
+    const Herb(
       id: 'holy-basil',
       name: 'Holy Basil',
       scientificName: 'Ocimum sanctum',
@@ -234,7 +234,7 @@ class HerbsData {
       imageUrl: 'assets/images/holy-basil.jpg',
       isFeatured: false,
     ),
-    Herb(
+    const Herb(
       id: 'milk-thistle',
       name: 'Milk Thistle',
       scientificName: 'Silybum marianum',
@@ -263,7 +263,7 @@ class HerbsData {
       imageUrl: 'assets/images/milk-thistle.jpg',
       isFeatured: false,
     ),
-    Herb(
+    const Herb(
       id: 'valerian',
       name: 'Valerian',
       scientificName: 'Valeriana officinalis',
@@ -292,7 +292,7 @@ class HerbsData {
       imageUrl: 'assets/images/valerian.jpg',
       isFeatured: false,
     ),
-    Herb(
+    const Herb(
       id: 'rosemary',
       name: 'Rosemary',
       scientificName: 'Rosmarinus officinalis',

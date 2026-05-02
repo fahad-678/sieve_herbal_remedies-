@@ -99,7 +99,7 @@ class _HerbCardState extends State<HerbCard> {
                     const SizedBox(height: 4),
                     Text(
                       widget.herb.scientificName,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 12,
                         fontStyle: FontStyle.italic,
                         color: AppColors.muted,

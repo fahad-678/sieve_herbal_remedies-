@@ -2,7 +2,7 @@ import '../models/ailment.dart';
 
 class AilmentsData {
   static final List<Ailment> ailments = [
-    Ailment(
+    const Ailment(
       id: 'tension-headache',
       name: 'Tension Headache',
       description: 'Tension headaches are the most common type of headache, characterized by a dull, aching pain and tightness across the forehead, temples, or back of the head and neck. Often triggered by stress, poor posture, or muscle tension, they can range from mild to moderate in intensity and may last from 30 minutes to several days.',
@@ -32,7 +32,7 @@ class AilmentsData {
         'Headache with vision changes, weakness, or speech difficulties',
       ],
     ),
-    Ailment(
+    const Ailment(
       id: 'anxiety',
       name: 'Anxiety & Stress',
       description: 'Anxiety is characterized by persistent worry, nervousness, or fear that interferes with daily activities. Stress is the body\'s response to challenging situations. Both can manifest physically and emotionally.',
@@ -61,7 +61,7 @@ class AilmentsData {
         'Self-medication with drugs or alcohol',
       ],
     ),
-    Ailment(
+    const Ailment(
       id: 'insomnia',
       name: 'Insomnia',
       description: 'Insomnia is difficulty falling asleep, staying asleep, or waking too early. It can be acute (short-term) or chronic (ongoing), significantly affecting daytime energy and mood.',
@@ -89,7 +89,7 @@ class AilmentsData {
         'Depression or anxiety accompanying insomnia',
       ],
     ),
-    Ailment(
+    const Ailment(
       id: 'digestive-issues',
       name: 'Digestive Issues',
       description: 'Digestive problems include bloating, gas, indigestion, and stomach discomfort. These can be caused by diet, stress, or underlying conditions.',
@@ -118,7 +118,7 @@ class AilmentsData {
         'Persistent vomiting',
       ],
     ),
-    Ailment(
+    const Ailment(
       id: 'inflammation',
       name: 'Inflammation',
       description: 'Chronic inflammation can affect joints, muscles, and tissues, causing pain and stiffness. Often associated with arthritis, overuse, or autoimmune conditions.',
