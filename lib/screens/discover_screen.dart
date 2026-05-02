@@ -478,19 +478,33 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   topLeft: Radius.circular(24),
                   bottomLeft: Radius.circular(24),
                 ),
-                child: Image.asset(
-                  herb.imageUrl,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Container(
-                      color: AppColors.secondary.withOpacity(0.3),
-                      child: const Icon(
-                        Icons.local_florist,
-                        color: AppColors.muted,
+                child: herb.hasNetworkImage
+                    ? Image.network(
+                        herb.imageUrl,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            color: AppColors.secondary.withOpacity(0.3),
+                            child: const Icon(
+                              Icons.local_florist,
+                              color: AppColors.muted,
+                            ),
+                          );
+                        },
+                      )
+                    : Image.asset(
+                        herb.imageUrl,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            color: AppColors.secondary.withOpacity(0.3),
+                            child: const Icon(
+                              Icons.local_florist,
+                              color: AppColors.muted,
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
               ),
             ),
             Expanded(

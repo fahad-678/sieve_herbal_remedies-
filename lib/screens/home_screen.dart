@@ -207,27 +207,49 @@ class _HomeScreenState extends State<HomeScreen> {
                                             topLeft: Radius.circular(28),
                                             topRight: Radius.circular(28),
                                           ),
-                                          child: Image.asset(
-                                            herbOfDay.imageUrl,
-                                            width: double.infinity,
-                                            height: 200,
-                                            fit: BoxFit.cover,
-                                            opacity:
-                                                const AlwaysStoppedAnimation(
-                                                    0.4),
-                                            errorBuilder:
-                                                (context, error, stackTrace) {
-                                              return Container(
-                                                color: AppColors.primary
-                                                    .withOpacity(0.3),
-                                                child: const Icon(
-                                                  Icons.local_florist,
-                                                  size: 64,
-                                                  color: Colors.white54,
+                                          child: herbOfDay.hasNetworkImage
+                                              ? Image.network(
+                                                  herbOfDay.imageUrl,
+                                                  width: double.infinity,
+                                                  height: 200,
+                                                  fit: BoxFit.cover,
+                                                  opacity:
+                                                      const AlwaysStoppedAnimation(
+                                                          0.4),
+                                                  errorBuilder: (context, error,
+                                                      stackTrace) {
+                                                    return Container(
+                                                      color: AppColors.primary
+                                                          .withOpacity(0.3),
+                                                      child: const Icon(
+                                                        Icons.local_florist,
+                                                        size: 64,
+                                                        color: Colors.white54,
+                                                      ),
+                                                    );
+                                                  },
+                                                )
+                                              : Image.asset(
+                                                  herbOfDay.imageUrl,
+                                                  width: double.infinity,
+                                                  height: 200,
+                                                  fit: BoxFit.cover,
+                                                  opacity:
+                                                      const AlwaysStoppedAnimation(
+                                                          0.4),
+                                                  errorBuilder: (context, error,
+                                                      stackTrace) {
+                                                    return Container(
+                                                      color: AppColors.primary
+                                                          .withOpacity(0.3),
+                                                      child: const Icon(
+                                                        Icons.local_florist,
+                                                        size: 64,
+                                                        color: Colors.white54,
+                                                      ),
+                                                    );
+                                                  },
                                                 ),
-                                              );
-                                            },
-                                          ),
                                         ),
                                         Container(
                                           decoration: BoxDecoration(
@@ -808,19 +830,33 @@ class _HomeScreenState extends State<HomeScreen> {
                   topLeft: Radius.circular(24),
                   bottomLeft: Radius.circular(24),
                 ),
-                child: Image.asset(
-                  herb.imageUrl,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Container(
-                      color: AppColors.secondary.withOpacity(0.3),
-                      child: const Icon(
-                        Icons.local_florist,
-                        color: AppColors.muted,
+                child: herb.hasNetworkImage
+                    ? Image.network(
+                        herb.imageUrl,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            color: AppColors.secondary.withOpacity(0.3),
+                            child: const Icon(
+                              Icons.local_florist,
+                              color: AppColors.muted,
+                            ),
+                          );
+                        },
+                      )
+                    : Image.asset(
+                        herb.imageUrl,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            color: AppColors.secondary.withOpacity(0.3),
+                            child: const Icon(
+                              Icons.local_florist,
+                              color: AppColors.muted,
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
               ),
             ),
             Expanded(

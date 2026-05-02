@@ -22,3 +22,4 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - lib/data/json/herbal_remedies.json

@@ -1,7 +1,11 @@
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
+
 import '../models/herb.dart';
 
 class HerbsData {
-  static final List<Herb> herbs = [
+  static final List<Herb> _curatedHerbs = [
     const Herb(
       id: 'ashwagandha',
       name: 'Ashwagandha',
@@ -9,14 +13,25 @@ class HerbsData {
       category: 'Adaptogen',
       commonNames: ['Indian Ginseng', 'Winter Cherry'],
       origin: 'India, Middle East',
-      primaryBenefits: ['Stress Reduction', 'Anxiety Relief', 'Hormone Balance', 'Energy Support', 'Cognitive Enhancement'],
-      briefDescription: 'A foundational adaptogenic herb known for reducing stress and improving vitality.',
-      detailedInformation: 'Ashwagandha is a powerful adaptogen used for thousands of years in Ayurveda to support stress resilience, hormone balance, and overall vitality. Modern research confirms its ability to reduce cortisol, improve sleep, enhance cognitive function, and support thyroid health.',
-      traditionalUses: 'Used in Ayurveda as a Rasayana for vitality, stress resilience, and longevity.',
-      modernApplications: 'Used for anxiety, cortisol reduction, sleep improvement, and cognitive support.',
+      primaryBenefits: [
+        'Stress Reduction',
+        'Anxiety Relief',
+        'Hormone Balance',
+        'Energy Support',
+        'Cognitive Enhancement'
+      ],
+      briefDescription:
+          'A foundational adaptogenic herb known for reducing stress and improving vitality.',
+      detailedInformation:
+          'Ashwagandha is a powerful adaptogen used for thousands of years in Ayurveda to support stress resilience, hormone balance, and overall vitality. Modern research confirms its ability to reduce cortisol, improve sleep, enhance cognitive function, and support thyroid health.',
+      traditionalUses:
+          'Used in Ayurveda as a Rasayana for vitality, stress resilience, and longevity.',
+      modernApplications:
+          'Used for anxiety, cortisol reduction, sleep improvement, and cognitive support.',
       activeCompounds: ['Withanolides', 'Alkaloids', 'Sitoindosides'],
       preparationMethods: ['powder', 'capsules', 'tincture', 'tea-infusion'],
-      howToUse: 'Mix powder in warm milk; take capsules with meals; tincture in water.',
+      howToUse:
+          'Mix powder in warm milk; take capsules with meals; tincture in water.',
       dosage: '300–600 mg extract daily or 1–2 tsp powder',
       bestTimeToTake: 'Evening for sleep; morning for energy',
       duration: '8–12 weeks',
@@ -38,11 +53,21 @@ class HerbsData {
       category: 'Anti-inflammatory',
       commonNames: ['Curcuma', 'Indian Saffron'],
       origin: 'India, Southeast Asia',
-      primaryBenefits: ['Anti-inflammatory', 'Antioxidant', 'Joint Support', 'Liver Support', 'Digestive Health'],
-      briefDescription: 'A golden root known for powerful anti-inflammatory and antioxidant effects.',
-      detailedInformation: 'Turmeric has been used for millennia in Indian medicine and cuisine. Curcumin, its primary active compound, has strong anti-inflammatory effects comparable to NSAIDs without the side effects. It supports joint health, liver detoxification, and metabolic balance.',
-      traditionalUses: 'Used in Ayurveda for inflammation, skin health, and digestive balance.',
-      modernApplications: 'Used for arthritis, inflammation, metabolic health, and antioxidant support.',
+      primaryBenefits: [
+        'Anti-inflammatory',
+        'Antioxidant',
+        'Joint Support',
+        'Liver Support',
+        'Digestive Health'
+      ],
+      briefDescription:
+          'A golden root known for powerful anti-inflammatory and antioxidant effects.',
+      detailedInformation:
+          'Turmeric has been used for millennia in Indian medicine and cuisine. Curcumin, its primary active compound, has strong anti-inflammatory effects comparable to NSAIDs without the side effects. It supports joint health, liver detoxification, and metabolic balance.',
+      traditionalUses:
+          'Used in Ayurveda for inflammation, skin health, and digestive balance.',
+      modernApplications:
+          'Used for arthritis, inflammation, metabolic health, and antioxidant support.',
       activeCompounds: ['Curcumin', 'Turmerones'],
       preparationMethods: ['powder', 'capsules', 'tea-infusion', 'decoction'],
       howToUse: 'Add to food; take capsules; prepare golden milk.',
@@ -67,14 +92,30 @@ class HerbsData {
       category: 'Sleep Support',
       commonNames: ['English Lavender', 'True Lavender'],
       origin: 'Mediterranean',
-      primaryBenefits: ['Sleep Enhancement', 'Anxiety Relief', 'Stress Reduction', 'Headache Relief', 'Skin Support'],
-      briefDescription: 'A calming aromatic herb renowned for promoting relaxation and restful sleep.',
-      detailedInformation: 'Lavender is one of the most beloved herbs for relaxation and sleep. Its essential oil contains linalool and linalyl acetate, compounds that calm the nervous system. Studies show lavender reduces anxiety, improves sleep quality, and relieves tension headaches.',
-      traditionalUses: 'Used in European herbalism for nervous tension, insomnia, and headaches.',
-      modernApplications: 'Aromatherapy for anxiety, sleep aids, topical application for skin irritation.',
+      primaryBenefits: [
+        'Sleep Enhancement',
+        'Anxiety Relief',
+        'Stress Reduction',
+        'Headache Relief',
+        'Skin Support'
+      ],
+      briefDescription:
+          'A calming aromatic herb renowned for promoting relaxation and restful sleep.',
+      detailedInformation:
+          'Lavender is one of the most beloved herbs for relaxation and sleep. Its essential oil contains linalool and linalyl acetate, compounds that calm the nervous system. Studies show lavender reduces anxiety, improves sleep quality, and relieves tension headaches.',
+      traditionalUses:
+          'Used in European herbalism for nervous tension, insomnia, and headaches.',
+      modernApplications:
+          'Aromatherapy for anxiety, sleep aids, topical application for skin irritation.',
       activeCompounds: ['Linalool', 'Linalyl acetate', 'Camphor'],
-      preparationMethods: ['tea-infusion', 'essential oil', 'tincture', 'compress'],
-      howToUse: 'Brew tea; diffuse essential oil; apply diluted oil to temples.',
+      preparationMethods: [
+        'tea-infusion',
+        'essential oil',
+        'tincture',
+        'compress'
+      ],
+      howToUse:
+          'Brew tea; diffuse essential oil; apply diluted oil to temples.',
       dosage: '1–2 cups tea daily; 2–4 drops essential oil',
       bestTimeToTake: 'Evening, 30–60 minutes before bed',
       duration: 'As needed',
@@ -83,7 +124,8 @@ class HerbsData {
       drugInteractions: 'May enhance sedative effects',
       pregnancyWarning: 'Safe in culinary amounts',
       nursingWarning: 'Safe in culinary amounts',
-      storage: 'Store dried flowers in airtight container; protect oil from light',
+      storage:
+          'Store dried flowers in airtight container; protect oil from light',
       shelfLife: '12 months (flowers); 24 months (oil)',
       relatedHerbs: ['Chamomile', 'Lemon Balm', 'Valerian'],
       imageUrl: 'assets/images/lavender.jpg',
@@ -96,14 +138,25 @@ class HerbsData {
       category: 'Digestive',
       commonNames: ['Mint', 'Mentha'],
       origin: 'Europe, Middle East',
-      primaryBenefits: ['Digestive Relief', 'Nausea Reduction', 'Headache Relief', 'Respiratory Support', 'Antimicrobial'],
-      briefDescription: 'A cooling aromatic herb known for digestive and respiratory benefits.',
-      detailedInformation: 'Peppermint is widely used for digestive discomfort, nausea, and headaches. Menthol provides cooling relief and relaxes smooth muscles, making it effective for IBS and tension headaches. It also has antimicrobial properties and supports respiratory health.',
-      traditionalUses: 'Used for stomach upset, colds, and headaches in European herbalism.',
-      modernApplications: 'IBS relief, tension headache reduction, digestive support.',
+      primaryBenefits: [
+        'Digestive Relief',
+        'Nausea Reduction',
+        'Headache Relief',
+        'Respiratory Support',
+        'Antimicrobial'
+      ],
+      briefDescription:
+          'A cooling aromatic herb known for digestive and respiratory benefits.',
+      detailedInformation:
+          'Peppermint is widely used for digestive discomfort, nausea, and headaches. Menthol provides cooling relief and relaxes smooth muscles, making it effective for IBS and tension headaches. It also has antimicrobial properties and supports respiratory health.',
+      traditionalUses:
+          'Used for stomach upset, colds, and headaches in European herbalism.',
+      modernApplications:
+          'IBS relief, tension headache reduction, digestive support.',
       activeCompounds: ['Menthol', 'Menthone'],
       preparationMethods: ['tea-infusion', 'capsules', 'essential oil'],
-      howToUse: 'Brew tea after meals; take enteric-coated capsules; apply diluted oil.',
+      howToUse:
+          'Brew tea after meals; take enteric-coated capsules; apply diluted oil.',
       dosage: '1–3 cups tea daily; 0.2–0.4 ml essential oil',
       bestTimeToTake: 'After meals for digestion',
       duration: 'As needed',
@@ -125,11 +178,21 @@ class HerbsData {
       category: 'Anti-inflammatory',
       commonNames: ['Ginger Root', 'Zingiber'],
       origin: 'Southeast Asia',
-      primaryBenefits: ['Anti-inflammatory', 'Nausea Relief', 'Digestive Support', 'Pain Relief', 'Immune Support'],
-      briefDescription: 'A warming spice with powerful digestive and anti-inflammatory properties.',
-      detailedInformation: 'Ginger has been used for thousands of years for nausea, digestive upset, and inflammation. Gingerols and shogaols provide anti-inflammatory effects similar to NSAIDs. Effective for morning sickness, motion sickness, and menstrual pain.',
-      traditionalUses: 'Used in Traditional Chinese Medicine for digestive health and warming the body.',
-      modernApplications: 'Motion sickness, morning sickness, arthritis, muscle pain.',
+      primaryBenefits: [
+        'Anti-inflammatory',
+        'Nausea Relief',
+        'Digestive Support',
+        'Pain Relief',
+        'Immune Support'
+      ],
+      briefDescription:
+          'A warming spice with powerful digestive and anti-inflammatory properties.',
+      detailedInformation:
+          'Ginger has been used for thousands of years for nausea, digestive upset, and inflammation. Gingerols and shogaols provide anti-inflammatory effects similar to NSAIDs. Effective for morning sickness, motion sickness, and menstrual pain.',
+      traditionalUses:
+          'Used in Traditional Chinese Medicine for digestive health and warming the body.',
+      modernApplications:
+          'Motion sickness, morning sickness, arthritis, muscle pain.',
       activeCompounds: ['Gingerols', 'Shogaols'],
       preparationMethods: ['tea-infusion', 'decoction', 'powder', 'fresh'],
       howToUse: 'Brew fresh ginger tea; take capsules; add to food.',
@@ -154,14 +217,25 @@ class HerbsData {
       category: 'Sleep Support',
       commonNames: ['German Chamomile', 'Wild Chamomile'],
       origin: 'Europe, Western Asia',
-      primaryBenefits: ['Sleep Support', 'Anxiety Relief', 'Digestive Comfort', 'Anti-inflammatory', 'Skin Health'],
-      briefDescription: 'A gentle herb known for promoting relaxation and supporting digestive health.',
-      detailedInformation: 'Chamomile is one of the most widely used herbs for relaxation and sleep. Apigenin binds to benzodiazepine receptors in the brain, promoting calmness. Also soothes digestive upset and reduces inflammation.',
-      traditionalUses: 'Used in European herbalism for sleep, digestive upset, and skin irritation.',
-      modernApplications: 'Anxiety relief, sleep aid, digestive support, topical anti-inflammatory.',
+      primaryBenefits: [
+        'Sleep Support',
+        'Anxiety Relief',
+        'Digestive Comfort',
+        'Anti-inflammatory',
+        'Skin Health'
+      ],
+      briefDescription:
+          'A gentle herb known for promoting relaxation and supporting digestive health.',
+      detailedInformation:
+          'Chamomile is one of the most widely used herbs for relaxation and sleep. Apigenin binds to benzodiazepine receptors in the brain, promoting calmness. Also soothes digestive upset and reduces inflammation.',
+      traditionalUses:
+          'Used in European herbalism for sleep, digestive upset, and skin irritation.',
+      modernApplications:
+          'Anxiety relief, sleep aid, digestive support, topical anti-inflammatory.',
       activeCompounds: ['Apigenin', 'Bisabolol', 'Chamazulene'],
       preparationMethods: ['tea-infusion', 'tincture', 'compress'],
-      howToUse: 'Brew tea 30–60 minutes before bed; apply as compress for skin.',
+      howToUse:
+          'Brew tea 30–60 minutes before bed; apply as compress for skin.',
       dosage: '1–4 cups tea daily',
       bestTimeToTake: 'Evening for sleep; after meals for digestion',
       duration: 'As needed',
@@ -183,12 +257,26 @@ class HerbsData {
       category: 'Immune Support',
       commonNames: ['Purple Coneflower', 'Echinacea'],
       origin: 'North America',
-      primaryBenefits: ['Immune Support', 'Cold Relief', 'Anti-inflammatory', 'Antimicrobial', 'Wound Healing'],
-      briefDescription: 'A powerful immune-supporting herb traditionally used to reduce cold duration.',
-      detailedInformation: 'Echinacea stimulates the immune system and has antimicrobial properties. Research shows it may reduce the duration and severity of colds when taken at the first sign of symptoms. Also supports wound healing and reduces inflammation.',
-      traditionalUses: 'Used by Native Americans for infections, wounds, and snake bites.',
-      modernApplications: 'Cold and flu prevention, immune support, upper respiratory infections.',
-      activeCompounds: ['Alkylamides', 'Polysaccharides', 'Caffeic acid derivatives'],
+      primaryBenefits: [
+        'Immune Support',
+        'Cold Relief',
+        'Anti-inflammatory',
+        'Antimicrobial',
+        'Wound Healing'
+      ],
+      briefDescription:
+          'A powerful immune-supporting herb traditionally used to reduce cold duration.',
+      detailedInformation:
+          'Echinacea stimulates the immune system and has antimicrobial properties. Research shows it may reduce the duration and severity of colds when taken at the first sign of symptoms. Also supports wound healing and reduces inflammation.',
+      traditionalUses:
+          'Used by Native Americans for infections, wounds, and snake bites.',
+      modernApplications:
+          'Cold and flu prevention, immune support, upper respiratory infections.',
+      activeCompounds: [
+        'Alkylamides',
+        'Polysaccharides',
+        'Caffeic acid derivatives'
+      ],
       preparationMethods: ['tincture', 'capsules', 'tea-infusion'],
       howToUse: 'Take tincture or capsules at first sign of illness.',
       dosage: '300–500 mg extract 3 times daily',
@@ -212,11 +300,21 @@ class HerbsData {
       category: 'Adaptogen',
       commonNames: ['Tulsi', 'Sacred Basil'],
       origin: 'India, Southeast Asia',
-      primaryBenefits: ['Stress Reduction', 'Blood Sugar Support', 'Respiratory Health', 'Antimicrobial', 'Antioxidant'],
-      briefDescription: 'A sacred adaptogenic herb known for stress relief and metabolic support.',
-      detailedInformation: 'Holy Basil (Tulsi) is revered in Ayurveda as an adaptogen that supports stress resilience, metabolic health, and respiratory function. It helps balance blood sugar, reduces cortisol, and has antimicrobial properties.',
-      traditionalUses: 'Sacred herb in Hinduism; used for stress, respiratory infections, and longevity.',
-      modernApplications: 'Stress management, blood sugar support, respiratory health.',
+      primaryBenefits: [
+        'Stress Reduction',
+        'Blood Sugar Support',
+        'Respiratory Health',
+        'Antimicrobial',
+        'Antioxidant'
+      ],
+      briefDescription:
+          'A sacred adaptogenic herb known for stress relief and metabolic support.',
+      detailedInformation:
+          'Holy Basil (Tulsi) is revered in Ayurveda as an adaptogen that supports stress resilience, metabolic health, and respiratory function. It helps balance blood sugar, reduces cortisol, and has antimicrobial properties.',
+      traditionalUses:
+          'Sacred herb in Hinduism; used for stress, respiratory infections, and longevity.',
+      modernApplications:
+          'Stress management, blood sugar support, respiratory health.',
       activeCompounds: ['Eugenol', 'Ursolic acid', 'Rosmarinic acid'],
       preparationMethods: ['tea-infusion', 'capsules', 'tincture'],
       howToUse: 'Brew tea 2–3 times daily; take capsules with meals.',
@@ -241,11 +339,21 @@ class HerbsData {
       category: 'Liver Support',
       commonNames: ['Silybum', 'Marian Thistle'],
       origin: 'Mediterranean',
-      primaryBenefits: ['Liver Protection', 'Detoxification Support', 'Antioxidant', 'Anti-inflammatory', 'Metabolic Support'],
-      briefDescription: 'A powerful herb known for protecting and regenerating liver cells.',
-      detailedInformation: 'Milk Thistle contains silymarin, a flavonoid complex that protects liver cells, supports detoxification, and promotes liver regeneration. Used for liver conditions, hepatitis, and as a protective agent against toxins.',
-      traditionalUses: 'Used in European herbalism for liver and gallbladder conditions.',
-      modernApplications: 'Liver protection, hepatitis support, detoxification.',
+      primaryBenefits: [
+        'Liver Protection',
+        'Detoxification Support',
+        'Antioxidant',
+        'Anti-inflammatory',
+        'Metabolic Support'
+      ],
+      briefDescription:
+          'A powerful herb known for protecting and regenerating liver cells.',
+      detailedInformation:
+          'Milk Thistle contains silymarin, a flavonoid complex that protects liver cells, supports detoxification, and promotes liver regeneration. Used for liver conditions, hepatitis, and as a protective agent against toxins.',
+      traditionalUses:
+          'Used in European herbalism for liver and gallbladder conditions.',
+      modernApplications:
+          'Liver protection, hepatitis support, detoxification.',
       activeCompounds: ['Silymarin', 'Silybin'],
       preparationMethods: ['capsules', 'tincture', 'powder'],
       howToUse: 'Take standardized extract capsules with meals.',
@@ -270,10 +378,19 @@ class HerbsData {
       category: 'Sleep Support',
       commonNames: ['Valerian Root', 'Garden Heliotrope'],
       origin: 'Europe, Asia',
-      primaryBenefits: ['Sleep Enhancement', 'Anxiety Relief', 'Muscle Relaxation', 'Stress Reduction', 'Menstrual Support'],
-      briefDescription: 'A powerful sedative herb used to promote deep, restorative sleep.',
-      detailedInformation: 'Valerian has been used for centuries as a sleep aid and anxiety reducer. It increases GABA levels in the brain, promoting relaxation and sleep. Most effective when used consistently over 2–4 weeks.',
-      traditionalUses: 'Used in European herbalism for insomnia, nervous tension, and hysteria.',
+      primaryBenefits: [
+        'Sleep Enhancement',
+        'Anxiety Relief',
+        'Muscle Relaxation',
+        'Stress Reduction',
+        'Menstrual Support'
+      ],
+      briefDescription:
+          'A powerful sedative herb used to promote deep, restorative sleep.',
+      detailedInformation:
+          'Valerian has been used for centuries as a sleep aid and anxiety reducer. It increases GABA levels in the brain, promoting relaxation and sleep. Most effective when used consistently over 2–4 weeks.',
+      traditionalUses:
+          'Used in European herbalism for insomnia, nervous tension, and hysteria.',
       modernApplications: 'Insomnia, anxiety, restlessness, muscle tension.',
       activeCompounds: ['Valerenic acid', 'Valepotriates'],
       preparationMethods: ['capsules', 'tincture', 'tea-infusion'],
@@ -299,13 +416,28 @@ class HerbsData {
       category: 'Culinary',
       commonNames: ['Rosmarinus', 'Compass Plant'],
       origin: 'Mediterranean',
-      primaryBenefits: ['Cognitive Support', 'Antioxidant', 'Circulation Support', 'Hair Health', 'Digestive Support'],
-      briefDescription: 'An aromatic herb known for enhancing memory and circulation.',
-      detailedInformation: 'Rosemary has been used since ancient times for memory enhancement and cognitive support. Research shows it improves concentration, memory, and mood. Also supports circulation and has powerful antioxidant properties.',
-      traditionalUses: 'Used in Mediterranean herbalism for memory, digestion, and hair health.',
-      modernApplications: 'Cognitive enhancement, memory support, culinary use.',
+      primaryBenefits: [
+        'Cognitive Support',
+        'Antioxidant',
+        'Circulation Support',
+        'Hair Health',
+        'Digestive Support'
+      ],
+      briefDescription:
+          'An aromatic herb known for enhancing memory and circulation.',
+      detailedInformation:
+          'Rosemary has been used since ancient times for memory enhancement and cognitive support. Research shows it improves concentration, memory, and mood. Also supports circulation and has powerful antioxidant properties.',
+      traditionalUses:
+          'Used in Mediterranean herbalism for memory, digestion, and hair health.',
+      modernApplications:
+          'Cognitive enhancement, memory support, culinary use.',
       activeCompounds: ['Rosmarinic acid', 'Carnosic acid', 'Camphor'],
-      preparationMethods: ['tea-infusion', 'essential oil', 'fresh herb', 'tincture'],
+      preparationMethods: [
+        'tea-infusion',
+        'essential oil',
+        'fresh herb',
+        'tincture'
+      ],
       howToUse: 'Brew tea; diffuse essential oil; use fresh in cooking.',
       dosage: '1–3 cups tea daily; culinary amounts',
       bestTimeToTake: 'Morning for cognitive support',
@@ -322,6 +454,184 @@ class HerbsData {
       isFeatured: false,
     ),
   ];
+
+  static const Set<String> _defaultFeaturedIds = {
+    'ashwagandha',
+    'turmeric',
+    'lavender',
+    'peppermint',
+    'chamomile',
+  };
+
+  static late List<Herb> herbs = List.unmodifiable(_curatedHerbs);
+  static bool _initialized = false;
+
+  static Future<void> initialize() async {
+    if (_initialized) {
+      return;
+    }
+
+    try {
+      final rawJson = await rootBundle.loadString(
+        'lib/data/json/herbal_remedies.json',
+      );
+      final importedHerbs = _parseImportedHerbs(rawJson);
+      herbs = List.unmodifiable(_mergeHerbs(_curatedHerbs, importedHerbs));
+    } catch (_) {
+      herbs = List.unmodifiable(_curatedHerbs);
+    }
+
+    _initialized = true;
+  }
+
+  static List<Herb> _mergeHerbs(
+    List<Herb> curatedHerbs,
+    List<Herb> importedHerbs,
+  ) {
+    final merged = <String, Herb>{};
+
+    for (final herb in curatedHerbs) {
+      merged[herb.id] = herb;
+    }
+
+    for (final herb in importedHerbs) {
+      if (!merged.containsKey(herb.id)) {
+        merged[herb.id] = herb;
+      }
+    }
+
+    return merged.values.toList();
+  }
+
+  static List<Herb> _parseImportedHerbs(String rawJson) {
+    final decoded = jsonDecode(rawJson);
+    final rawHerbs = <Map<String, dynamic>>[];
+
+    if (decoded is Map<String, dynamic>) {
+      for (final value in decoded.values) {
+        if (value is List) {
+          for (final item in value) {
+            if (item is Map) {
+              rawHerbs.add(Map<String, dynamic>.from(item));
+            }
+          }
+        }
+      }
+    } else if (decoded is List) {
+      for (final item in decoded) {
+        if (item is Map) {
+          rawHerbs.add(Map<String, dynamic>.from(item));
+        }
+      }
+    }
+
+    return rawHerbs.map(_herbFromJson).toList();
+  }
+
+  static Herb _herbFromJson(Map<String, dynamic> json) {
+    final name = _stringValue(json['Herb Name']);
+    final id = _slugify(name.isEmpty ? _stringValue(json['#']) : name);
+    final commonNames = _splitValues(_stringValue(json['Common Names']));
+    final primaryBenefits = [
+      for (var index = 1; index <= 5; index++)
+        _stringValue(json['Primary Benefit $index'])
+    ].where((item) => item.isNotEmpty).toList();
+
+    return Herb(
+      id: id,
+      name: name,
+      scientificName: _stringValue(json['Scientific Name']),
+      category: _stringValue(json['Category']),
+      commonNames: commonNames,
+      origin: _stringValue(json['Origin/Native Region']),
+      primaryBenefits: primaryBenefits,
+      briefDescription: _stringValue(json['Brief Description']),
+      detailedInformation: _stringValue(json['Detailed Information']),
+      traditionalUses: _stringValue(json['Traditional Uses']),
+      modernApplications: _stringValue(json['Modern Applications']),
+      activeCompounds: _splitValues(_stringValue(json['Key Active Compounds'])),
+      preparationMethods:
+          _splitValues(_stringValue(json['Preparation Methods'])),
+      howToUse: _stringValue(json['How to Use']),
+      dosage: _stringValue(json['Recommended Dosage']),
+      bestTimeToTake: _stringValue(json['Best Time to Take']),
+      duration: _stringValue(json['Duration of Use']),
+      contraindications: _stringValue(json['Contraindications']),
+      sideEffects: _stringValue(json['Side Effects']),
+      drugInteractions: _stringValue(json['Drug Interactions']),
+      pregnancyWarning: _stringValue(json['Pregnancy Warning']),
+      nursingWarning: _stringValue(json['Nursing Warning']),
+      storage: _stringValue(json['Storage Instructions']),
+      shelfLife: _stringValue(json['Shelf Life']),
+      relatedHerbs: _splitValues(_stringValue(json['Related Herbs'])),
+      imageUrl: _cleanImageUrl(_stringValue(json['Image URL'])),
+      isFeatured: _boolValue(json['Featured']) ||
+          _boolValue(json['Is Featured']) ||
+          _defaultFeaturedIds.contains(id),
+    );
+  }
+
+  static String _stringValue(dynamic value) {
+    return value == null ? '' : value.toString().trim();
+  }
+
+  static bool _boolValue(dynamic value) {
+    if (value is bool) {
+      return value;
+    }
+    if (value is String) {
+      return value.toLowerCase() == 'true';
+    }
+    return false;
+  }
+
+  static List<String> _splitValues(String value) {
+    if (value.isEmpty) {
+      return const [];
+    }
+
+    return value
+        .split(RegExp(r'[;,]'))
+        .map((item) => item.trim())
+        .where((item) => item.isNotEmpty)
+        .toList();
+  }
+
+  static String _cleanImageUrl(String value) {
+    if (value.isEmpty) {
+      return value;
+    }
+
+    // Remove trailing annotation like " (en.wikipedia.org in Bing)"
+    String cleaned = value.split(' ').first.trim();
+
+    // Convert Wikipedia media fragment URLs to direct Wikimedia Commons URLs
+    // Input: https://en.wikipedia.org/wiki/Species#/media/File:Image.jpg
+    // Output: https://commons.wikimedia.org/wiki/Special:FilePath/Image.jpg
+    if (cleaned.contains('en.wikipedia.org/wiki/') &&
+        cleaned.contains('#/media/File:')) {
+      try {
+        final fileMatch = RegExp(r'File:([^/\)]+)').firstMatch(cleaned);
+        if (fileMatch != null) {
+          final filename = fileMatch.group(1);
+          if (filename != null && filename.isNotEmpty) {
+            // Use Wikimedia Commons direct file path for reliable access
+            final encoded = Uri.encodeComponent(filename);
+            return 'https://commons.wikimedia.org/wiki/Special:FilePath/$encoded';
+          }
+        }
+      } catch (_) {
+        // Fall back to cleaned URL if conversion fails
+      }
+    }
+
+    return cleaned;
+  }
+
+  static String _slugify(String value) {
+    final slug = value.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]+'), '-');
+    return slug.replaceAll(RegExp(r'^-+|-+$'), '');
+  }
 
   static Herb? getHerbById(String id) {
     try {

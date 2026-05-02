@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'data/herbs_data.dart';
 import 'theme/app_colors.dart';
 import 'navigation/app_navigator.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
@@ -12,6 +13,7 @@ void main() {
       statusBarIconBrightness: Brightness.dark,
     ),
   );
+  await HerbsData.initialize();
   runApp(const SieveApp());
 }
 

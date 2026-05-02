@@ -72,14 +72,25 @@ class _HerbCardState extends State<HerbCard> {
                   topLeft: Radius.circular(12),
                   bottomLeft: Radius.circular(12),
                 ),
-                child: Image.network(
-                  widget.herb.imageUrl,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) => const Icon(
-                    Icons.local_florist,
-                    color: AppColors.muted,
-                  ),
-                ),
+                child: widget.herb.hasNetworkImage
+                    ? Image.network(
+                        widget.herb.imageUrl,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(
+                          Icons.local_florist,
+                          color: AppColors.muted,
+                        ),
+                      )
+                    : Image.asset(
+                        widget.herb.imageUrl,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(
+                          Icons.local_florist,
+                          color: AppColors.muted,
+                        ),
+                      ),
               ),
             ),
             Expanded(

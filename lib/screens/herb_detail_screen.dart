@@ -79,18 +79,33 @@ class _HerbDetailScreenState extends State<HerbDetailScreen> {
               background: Stack(
                 fit: StackFit.expand,
                 children: [
-                  Image.asset(
-                    herb.imageUrl,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) => Container(
-                      color: AppColors.secondary,
-                      child: const Icon(
-                        Icons.local_florist,
-                        size: 64,
-                        color: AppColors.muted,
-                      ),
-                    ),
-                  ),
+                  herb.hasNetworkImage
+                      ? Image.network(
+                          herb.imageUrl,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) =>
+                              Container(
+                            color: AppColors.secondary,
+                            child: const Icon(
+                              Icons.local_florist,
+                              size: 64,
+                              color: AppColors.muted,
+                            ),
+                          ),
+                        )
+                      : Image.asset(
+                          herb.imageUrl,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) =>
+                              Container(
+                            color: AppColors.secondary,
+                            child: const Icon(
+                              Icons.local_florist,
+                              size: 64,
+                              color: AppColors.muted,
+                            ),
+                          ),
+                        ),
                   Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
@@ -273,7 +288,9 @@ class _HerbDetailScreenState extends State<HerbDetailScreen> {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
-                  color: isWarning ? const Color(0xFFDC2626) : AppColors.foreground,
+                  color: isWarning
+                      ? const Color(0xFFDC2626)
+                      : AppColors.foreground,
                 ),
               ),
             ],
@@ -287,7 +304,9 @@ class _HerbDetailScreenState extends State<HerbDetailScreen> {
                     Icon(
                       icon,
                       size: 18,
-                      color: isWarning ? const Color(0xFFDC2626) : AppColors.accent,
+                      color: isWarning
+                          ? const Color(0xFFDC2626)
+                          : AppColors.accent,
                     ),
                     const SizedBox(width: 12),
                     Expanded(

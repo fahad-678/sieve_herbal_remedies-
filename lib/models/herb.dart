@@ -56,4 +56,7 @@ class Herb {
     required this.imageUrl,
     this.isFeatured = false,
   });
+
+  bool get hasNetworkImage =>
+      imageUrl.startsWith('http://') || imageUrl.startsWith('https://');
 }
