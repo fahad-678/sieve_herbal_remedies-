@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import '../models/herb.dart';
@@ -463,7 +464,7 @@ class HerbsData {
     'chamomile',
   };
 
-  static late List<Herb> herbs = List.unmodifiable(_curatedHerbs);
+  static List<Herb> herbs = List.unmodifiable(_curatedHerbs);
   static bool _initialized = false;
 
   static Future<void> initialize() async {
@@ -475,7 +476,8 @@ class HerbsData {
       final rawJson = await rootBundle.loadString(
         'lib/data/json/herbal_remedies.json',
       );
-      final importedHerbs = _parseImportedHerbs(rawJson);
+      final importedRaw = await compute(_parseImportedHerbsToRaw, rawJson);
+      final importedHerbs = importedRaw.map(_herbFromJson).toList();
       herbs = List.unmodifiable(_mergeHerbs(_curatedHerbs, importedHerbs));
     } catch (_) {
       herbs = List.unmodifiable(_curatedHerbs);
@@ -527,6 +529,8 @@ class HerbsData {
 
     return rawHerbs.map(_herbFromJson).toList();
   }
+
+// (moved helper below class to remain top-level)
 
   static Herb _herbFromJson(Map<String, dynamic> json) {
     final name = _stringValue(json['Herb Name']);
@@ -663,4 +667,30 @@ class HerbsData {
   static List<Herb> getFeaturedHerbs() {
     return herbs.where((herb) => herb.isFeatured).toList();
   }
+}
+
+// Top-level helper for compute/isolate. Parse JSON into plain maps only.
+List<Map<String, dynamic>> _parseImportedHerbsToRaw(String rawJson) {
+  final decoded = jsonDecode(rawJson);
+  final rawHerbs = <Map<String, dynamic>>[];
+
+  if (decoded is Map<String, dynamic>) {
+    for (final value in decoded.values) {
+      if (value is List) {
+        for (final item in value) {
+          if (item is Map) {
+            rawHerbs.add(Map<String, dynamic>.from(item));
+          }
+        }
+      }
+    }
+  } else if (decoded is List) {
+    for (final item in decoded) {
+      if (item is Map) {
+        rawHerbs.add(Map<String, dynamic>.from(item));
+      }
+    }
+  }
+
+  return rawHerbs;
 }

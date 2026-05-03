@@ -171,6 +171,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     ? Image.network(
                         herb.imageUrl,
                         fit: BoxFit.cover,
+                        cacheWidth: 224,
+                        cacheHeight: 224,
                         errorBuilder: (context, error, stackTrace) {
                           return Container(
                             color: AppColors.secondary.withOpacity(0.3),
@@ -184,6 +186,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     : Image.asset(
                         herb.imageUrl,
                         fit: BoxFit.cover,
+                        cacheWidth: 224,
+                        cacheHeight: 224,
                         errorBuilder: (context, error, stackTrace) {
                           return Container(
                             color: AppColors.secondary.withOpacity(0.3),

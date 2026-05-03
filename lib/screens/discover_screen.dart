@@ -23,11 +23,30 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   String _selectedCategory = 'All';
   String _searchQuery = '';
   Set<String> _favoriteHerbs = {};
+  List<Herb>? _cachedFilteredHerbs;
+  String _lastCacheQuery = '';
+  String _lastCacheCategory = '';
 
   @override
   void initState() {
     super.initState();
     _loadFavorites();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _precacheFeaturedImages());
+  }
+
+  void _precacheFeaturedImages() {
+    try {
+      final featured = HerbsData.getFeaturedHerbs();
+      for (final herb in featured) {
+        if (herb.hasNetworkImage && herb.imageUrl.isNotEmpty) {
+          precacheImage(NetworkImage(herb.imageUrl), context);
+        } else if (!herb.hasNetworkImage && herb.imageUrl.isNotEmpty) {
+          precacheImage(AssetImage(herb.imageUrl), context);
+        }
+      }
+    } catch (_) {
+      // ignore precache errors
+    }
   }
 
   Future<void> _loadFavorites() async {
@@ -53,6 +72,12 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   }
 
   List<Herb> get _filteredHerbs {
+    if (_cachedFilteredHerbs != null &&
+        _lastCacheQuery == _searchQuery &&
+        _lastCacheCategory == _selectedCategory) {
+      return _cachedFilteredHerbs!;
+    }
+
     var herbs = HerbsData.herbs;
 
     if (_selectedCategory != 'All') {
@@ -68,6 +93,10 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             h.primaryBenefits.any((b) => b.toLowerCase().contains(lowerQuery));
       }).toList();
     }
+
+    _cachedFilteredHerbs = herbs;
+    _lastCacheQuery = _searchQuery;
+    _lastCacheCategory = _selectedCategory;
 
     return herbs;
   }
@@ -141,6 +170,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                               onChanged: (value) {
                                 setState(() {
                                   _searchQuery = value;
+                                  _cachedFilteredHerbs = null;
                                 });
                               },
                               decoration: InputDecoration(
@@ -237,10 +267,13 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             ],
           ),
           const SizedBox(height: 16),
-          ..._filteredAilments.map(
-            (ailment) => Padding(
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: _filteredAilments.length,
+            itemBuilder: (context, index) => Padding(
               padding: const EdgeInsets.only(bottom: 16),
-              child: _buildAilmentCard(ailment),
+              child: _buildAilmentCard(_filteredAilments[index]),
             ),
           ),
           if (_filteredAilments.isEmpty)
@@ -285,10 +318,13 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             ],
           ),
           const SizedBox(height: 16),
-          ..._filteredPreparations.map(
-            (preparation) => Padding(
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: _filteredPreparations.length,
+            itemBuilder: (context, index) => Padding(
               padding: const EdgeInsets.only(bottom: 16),
-              child: _buildPreparationCard(preparation),
+              child: _buildPreparationCard(_filteredPreparations[index]),
             ),
           ),
           if (_filteredPreparations.isEmpty)
@@ -482,6 +518,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     ? Image.network(
                         herb.imageUrl,
                         fit: BoxFit.cover,
+                        cacheWidth: 224,
+                        cacheHeight: 224,
                         errorBuilder: (context, error, stackTrace) {
                           return Container(
                             color: AppColors.secondary.withOpacity(0.3),
@@ -495,6 +533,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     : Image.asset(
                         herb.imageUrl,
                         fit: BoxFit.cover,
+                        cacheWidth: 224,
+                        cacheHeight: 224,
                         errorBuilder: (context, error, stackTrace) {
                           return Container(
                             color: AppColors.secondary.withOpacity(0.3),

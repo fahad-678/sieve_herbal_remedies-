@@ -3,51 +3,23 @@ import '../models/herb.dart';
 import '../theme/app_colors.dart';
 import '../utils/storage.dart';
 
-class HerbCard extends StatefulWidget {
+class HerbCard extends StatelessWidget {
   final Herb herb;
   final VoidCallback onTap;
+  final bool isFavorite;
+  final VoidCallback? onToggleFavorite;
 
   const HerbCard({
     super.key,
     required this.herb,
     required this.onTap,
+    this.isFavorite = false,
+    this.onToggleFavorite,
   });
-
-  @override
-  State<HerbCard> createState() => _HerbCardState();
-}
-
-class _HerbCardState extends State<HerbCard> {
-  bool _isFavorite = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadFavoriteStatus();
-  }
-
-  Future<void> _loadFavoriteStatus() async {
-    final isFav = await Storage.isFavorite(widget.herb.id);
-    if (mounted) {
-      setState(() {
-        _isFavorite = isFav;
-      });
-    }
-  }
-
-  Future<void> _toggleFavorite() async {
-    final newStatus = await Storage.toggleFavorite(widget.herb.id);
-    if (mounted) {
-      setState(() {
-        _isFavorite = newStatus;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.onTap,
+      onTap: onTap,
       child: Container(
         margin: const EdgeInsets.only(bottom: 12),
         decoration: BoxDecoration(
@@ -72,10 +44,12 @@ class _HerbCardState extends State<HerbCard> {
                   topLeft: Radius.circular(12),
                   bottomLeft: Radius.circular(12),
                 ),
-                child: widget.herb.hasNetworkImage
+                child: herb.hasNetworkImage
                     ? Image.network(
-                        widget.herb.imageUrl,
+                        herb.imageUrl,
                         fit: BoxFit.cover,
+                        cacheWidth: 160,
+                        cacheHeight: 160,
                         errorBuilder: (context, error, stackTrace) =>
                             const Icon(
                           Icons.local_florist,
@@ -83,8 +57,10 @@ class _HerbCardState extends State<HerbCard> {
                         ),
                       )
                     : Image.asset(
-                        widget.herb.imageUrl,
+                        herb.imageUrl,
                         fit: BoxFit.cover,
+                        cacheWidth: 160,
+                        cacheHeight: 160,
                         errorBuilder: (context, error, stackTrace) =>
                             const Icon(
                           Icons.local_florist,
@@ -143,10 +119,10 @@ class _HerbCardState extends State<HerbCard> {
               padding: const EdgeInsets.only(right: 12),
               child: IconButton(
                 icon: Icon(
-                  _isFavorite ? Icons.favorite : Icons.favorite_border,
-                  color: _isFavorite ? Colors.red : AppColors.muted,
+                  isFavorite ? Icons.favorite : Icons.favorite_border,
+                  color: isFavorite ? Colors.red : AppColors.muted,
                 ),
-                onPressed: _toggleFavorite,
+                onPressed: onToggleFavorite,
               ),
             ),
           ],

@@ -834,6 +834,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ? Image.network(
                         herb.imageUrl,
                         fit: BoxFit.cover,
+                        cacheWidth: 224,
+                        cacheHeight: 224,
                         errorBuilder: (context, error, stackTrace) {
                           return Container(
                             color: AppColors.secondary.withOpacity(0.3),
@@ -847,6 +849,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     : Image.asset(
                         herb.imageUrl,
                         fit: BoxFit.cover,
+                        cacheWidth: 224,
+                        cacheHeight: 224,
                         errorBuilder: (context, error, stackTrace) {
                           return Container(
                             color: AppColors.secondary.withOpacity(0.3),
