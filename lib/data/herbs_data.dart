@@ -479,7 +479,15 @@ class HerbsData {
       final importedRaw = await compute(_parseImportedHerbsToRaw, rawJson);
       final importedHerbs = importedRaw.map(_herbFromJson).toList();
       herbs = List.unmodifiable(_mergeHerbs(_curatedHerbs, importedHerbs));
-    } catch (_) {
+    } catch (e, st) {
+      // Log initialization errors for diagnostics (kept lightweight and safe).
+      try {
+        debugPrint('HerbsData.initialize failed: $e');
+        debugPrintStack(stackTrace: st);
+      } catch (_) {
+        // Ignore any logging failure.
+      }
+
       herbs = List.unmodifiable(_curatedHerbs);
     }
 
