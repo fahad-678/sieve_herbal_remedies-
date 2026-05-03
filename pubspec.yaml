@@ -28,4 +28,4 @@ flutter:
 flutter_icons:
   android: true
   ios: false
-  image_path: "assets/images/peppermint.jpg"
+  image_path: "assets/images/app-icon.png"
