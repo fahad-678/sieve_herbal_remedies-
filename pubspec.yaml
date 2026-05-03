@@ -17,9 +17,15 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
+  flutter_launcher_icons: ^0.12.0
 
 flutter:
   uses-material-design: true
   assets:
     - assets/images/
     - lib/data/json/herbal_remedies.json
+
+flutter_icons:
+  android: true
+  ios: false
+  image_path: "assets/images/peppermint.jpg"

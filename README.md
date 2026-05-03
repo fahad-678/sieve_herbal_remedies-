@@ -47,3 +47,34 @@ lib/
 │   └── storage.dart         # SharedPreferences wrapper
 └── widgets/
     └── herb_card.dart       # Reusable herb card
+
+## Android release notes
+
+Follow these steps to prepare a release build for Google Play.
+
+1. Generate Android platform (already done by this repository):
+
+```bash
+flutter create --platforms=android .
+```
+
+2. Generate an Android keystore (runs locally; do not commit the keystore or `android/key.properties`):
+
+```bash
+./scripts/generate_keystore.sh
+# then follow prompts
+```
+
+3. Build a signed App Bundle for Play Store:
+
+```bash
+flutter build appbundle --release
+```
+
+4. Before uploading to Play Console, see [PLAY_STORE_SUBMISSION.md](PLAY_STORE_SUBMISSION.md) for the complete step-by-step submission guide.
+
+Notes:
+- `android/key.properties.template` is provided as a template. Copy it to `android/key.properties` and fill values, or run the script above.
+- `android/key.properties` and `android/keystore/` are gitignored by default.
+- The signed AAB file is located at: `build/app/outputs/bundle/release/app-release.aab`
+- See `PRIVACY_POLICY.md` and `PLAY_STORE_SUBMISSION.md` for additional details.
