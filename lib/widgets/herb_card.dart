@@ -26,102 +26,109 @@ class HerbCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: AppColors.border),
         ),
-        child: Row(
+        child: Stack(
           children: [
-            Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                color: AppColors.secondary.withValues(alpha: 0.3),
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  bottomLeft: Radius.circular(12),
+            Row(
+              children: [
+                Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: AppColors.secondary.withValues(alpha: 0.3),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      bottomLeft: Radius.circular(12),
+                    ),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      bottomLeft: Radius.circular(12),
+                    ),
+                    child: herb.hasNetworkImage
+                        ? Image.network(
+                            herb.imageUrl,
+                            fit: BoxFit.cover,
+                            cacheWidth: 160,
+                            cacheHeight: 160,
+                            errorBuilder: (context, error, stackTrace) =>
+                                const Icon(
+                              Icons.local_florist,
+                              color: AppColors.muted,
+                            ),
+                          )
+                        : Image.asset(
+                            herb.imageUrl,
+                            fit: BoxFit.cover,
+                            cacheWidth: 160,
+                            cacheHeight: 160,
+                            errorBuilder: (context, error, stackTrace) =>
+                                const Icon(
+                              Icons.local_florist,
+                              color: AppColors.muted,
+                            ),
+                          ),
+                  ),
                 ),
-              ),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  bottomLeft: Radius.circular(12),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          herb.name,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.foreground,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          herb.scientificName,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontStyle: FontStyle.italic,
+                            color: AppColors.muted,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                child: herb.hasNetworkImage
-                    ? Image.network(
-                        herb.imageUrl,
-                        fit: BoxFit.cover,
-                        cacheWidth: 160,
-                        cacheHeight: 160,
-                        errorBuilder: (context, error, stackTrace) =>
-                            const Icon(
-                          Icons.local_florist,
-                          color: AppColors.muted,
-                        ),
-                      )
-                    : Image.asset(
-                        herb.imageUrl,
-                        fit: BoxFit.cover,
-                        cacheWidth: 160,
-                        cacheHeight: 160,
-                        errorBuilder: (context, error, stackTrace) =>
-                            const Icon(
-                          Icons.local_florist,
-                          color: AppColors.muted,
-                        ),
-                      ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 12),
+                  child: IconButton(
+                    icon: Icon(
+                      isFavorite ? Icons.favorite : Icons.favorite_border,
+                      color: isFavorite ? Colors.red : AppColors.muted,
+                    ),
+                    onPressed: onToggleFavorite,
+                  ),
+                ),
+              ],
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      herb.name,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.foreground,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      herb.scientificName,
-                      style: const TextStyle(
-                        fontSize: 12,
-                        fontStyle: FontStyle.italic,
-                        color: AppColors.muted,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColors.secondary.withValues(alpha: 0.5),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Text(
-                        herb.category,
-                        style: const TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.foreground,
-                        ),
-                      ),
-                    ),
-                  ],
+            Positioned(
+              top: 8,
+              right: 50,
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 4,
                 ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 12),
-              child: IconButton(
-                icon: Icon(
-                  isFavorite ? Icons.favorite : Icons.favorite_border,
-                  color: isFavorite ? Colors.red : AppColors.muted,
+                decoration: BoxDecoration(
+                  color: AppColors.secondary.withValues(alpha: 0.5),
+                  borderRadius: BorderRadius.circular(4),
                 ),
-                onPressed: onToggleFavorite,
+                child: Text(
+                  herb.category,
+                  style: const TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.foreground,
+                  ),
+                ),
               ),
             ),
           ],

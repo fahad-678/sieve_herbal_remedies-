@@ -3,6 +3,7 @@ import '../data/ailments_data.dart';
 import '../data/herbs_data.dart';
 import '../models/herb.dart';
 import '../theme/app_colors.dart';
+import '../widgets/educational_disclaimer_card.dart';
 import 'herb_detail_screen.dart';
 
 class AilmentDetailScreen extends StatelessWidget {
@@ -60,6 +61,8 @@ class AilmentDetailScreen extends StatelessWidget {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 24),
+                    const EducationalDisclaimerCard(),
                     const SizedBox(height: 24),
                     Text(
                       ailment.name,
@@ -167,8 +170,8 @@ class AilmentDetailScreen extends StatelessWidget {
                                       vertical: 10,
                                     ),
                                     decoration: BoxDecoration(
-                                      color:
-                                          AppColors.secondary.withValues(alpha: 0.5),
+                                      color: AppColors.secondary
+                                          .withValues(alpha: 0.5),
                                       borderRadius: BorderRadius.circular(12),
                                       border:
                                           Border.all(color: AppColors.border),

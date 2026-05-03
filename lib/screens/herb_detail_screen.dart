@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../data/herbs_data.dart';
 import '../theme/app_colors.dart';
 import '../utils/storage.dart';
+import '../widgets/educational_disclaimer_card.dart';
 
 class HerbDetailScreen extends StatefulWidget {
   final String herbId;
@@ -155,6 +156,8 @@ class _HerbDetailScreenState extends State<HerbDetailScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const EducationalDisclaimerCard(),
+                  const SizedBox(height: 16),
                   _buildInfoCard(
                     title: 'About',
                     content: herb.detailedInformation,

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import '../data/preparations_data.dart';
 import '../theme/app_colors.dart';
+import '../widgets/educational_disclaimer_card.dart';
 
 class PreparationDetailScreen extends StatefulWidget {
   final String preparationId;
@@ -12,7 +13,8 @@ class PreparationDetailScreen extends StatefulWidget {
   });
 
   @override
-  State<PreparationDetailScreen> createState() => _PreparationDetailScreenState();
+  State<PreparationDetailScreen> createState() =>
+      _PreparationDetailScreenState();
 }
 
 class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
@@ -54,7 +56,7 @@ class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
 
   void _toggleTimer() {
     if (_timeLeft == 0) return;
-    
+
     setState(() {
       _isRunning = !_isRunning;
     });
@@ -95,7 +97,8 @@ class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
       );
     }
 
-    final progress = _totalTime > 0 ? ((_totalTime - _timeLeft) / _totalTime) : 0.0;
+    final progress =
+        _totalTime > 0 ? ((_totalTime - _timeLeft) / _totalTime) : 0.0;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -141,6 +144,8 @@ class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
                         color: AppColors.mutedForeground,
                       ),
                     ),
+                    const SizedBox(height: 24),
+                    const EducationalDisclaimerCard(),
                     const SizedBox(height: 24),
                     Container(
                       padding: const EdgeInsets.all(24),
@@ -240,7 +245,8 @@ class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
                                   width: 48,
                                   height: 48,
                                   decoration: BoxDecoration(
-                                    color: AppColors.primary.withValues(alpha: 0.2),
+                                    color: AppColors.primary
+                                        .withValues(alpha: 0.2),
                                     shape: BoxShape.circle,
                                   ),
                                   child: const Icon(
@@ -273,8 +279,10 @@ class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
                                     child: CircularProgressIndicator(
                                       value: progress,
                                       strokeWidth: 10,
-                                      backgroundColor: AppColors.secondary.withValues(alpha: 0.2),
-                                      valueColor: const AlwaysStoppedAnimation<Color>(
+                                      backgroundColor: AppColors.secondary
+                                          .withValues(alpha: 0.2),
+                                      valueColor:
+                                          const AlwaysStoppedAnimation<Color>(
                                         AppColors.primary,
                                       ),
                                     ),
@@ -319,10 +327,12 @@ class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
                                     width: 56,
                                     height: 56,
                                     decoration: BoxDecoration(
-                                      color: AppColors.secondary.withValues(alpha: 0.4),
+                                      color: AppColors.secondary
+                                          .withValues(alpha: 0.4),
                                       shape: BoxShape.circle,
                                       border: Border.all(
-                                        color: AppColors.border.withValues(alpha: 0.5),
+                                        color: AppColors.border
+                                            .withValues(alpha: 0.5),
                                       ),
                                     ),
                                     child: const Icon(
@@ -344,20 +354,24 @@ class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
                                         end: Alignment.bottomRight,
                                         colors: [
                                           AppColors.accent,
-                                          AppColors.accent.withValues(alpha: 0.9),
+                                          AppColors.accent
+                                              .withValues(alpha: 0.9),
                                         ],
                                       ),
                                       shape: BoxShape.circle,
                                       boxShadow: [
                                         BoxShadow(
-                                          color: AppColors.accent.withValues(alpha: 0.3),
+                                          color: AppColors.accent
+                                              .withValues(alpha: 0.3),
                                           blurRadius: 16,
                                           offset: const Offset(0, 8),
                                         ),
                                       ],
                                     ),
                                     child: Icon(
-                                      _isRunning ? Icons.pause : Icons.play_arrow,
+                                      _isRunning
+                                          ? Icons.pause
+                                          : Icons.play_arrow,
                                       color: Colors.white,
                                       size: 32,
                                     ),
@@ -415,7 +429,8 @@ class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
                                   width: 36,
                                   height: 36,
                                   decoration: BoxDecoration(
-                                    color: AppColors.primary.withValues(alpha: 0.2),
+                                    color: AppColors.primary
+                                        .withValues(alpha: 0.2),
                                     shape: BoxShape.circle,
                                   ),
                                   child: Center(
@@ -437,7 +452,8 @@ class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
                                       prep.steps[index],
                                       style: TextStyle(
                                         fontSize: 15,
-                                        color: AppColors.foreground.withValues(alpha: 0.85),
+                                        color: AppColors.foreground
+                                            .withValues(alpha: 0.85),
                                         height: 1.5,
                                       ),
                                     ),
@@ -495,7 +511,8 @@ class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
                                   children: [
                                     Icon(
                                       Icons.coffee,
-                                      color: AppColors.primary.withValues(alpha: 0.7),
+                                      color: AppColors.primary
+                                          .withValues(alpha: 0.7),
                                       size: 16,
                                     ),
                                     const SizedBox(width: 12),
@@ -504,7 +521,8 @@ class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
                                         tip,
                                         style: TextStyle(
                                           fontSize: 14,
-                                          color: AppColors.primary.withValues(alpha: 0.9),
+                                          color: AppColors.primary
+                                              .withValues(alpha: 0.9),
                                           height: 1.5,
                                         ),
                                       ),
