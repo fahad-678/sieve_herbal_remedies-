@@ -1,4 +1,4 @@
-package com.example.sieve_herbal_remedies
+package com.example.sieveherbalremedies
 
 import io.flutter.embedding.android.FlutterActivity
 
