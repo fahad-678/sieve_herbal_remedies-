@@ -150,14 +150,14 @@ class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
                           end: Alignment.bottomRight,
                           colors: [
                             AppColors.card,
-                            AppColors.card.withOpacity(0.4),
+                            AppColors.card.withValues(alpha: 0.4),
                           ],
                         ),
                         borderRadius: BorderRadius.circular(24),
                         border: Border.all(color: AppColors.border),
                         boxShadow: [
                           BoxShadow(
-                            color: AppColors.primary.withOpacity(0.05),
+                            color: AppColors.primary.withValues(alpha: 0.05),
                             blurRadius: 12,
                             offset: const Offset(0, 4),
                           ),
@@ -167,7 +167,7 @@ class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
                         prep.description,
                         style: TextStyle(
                           fontSize: 15,
-                          color: AppColors.foreground.withOpacity(0.8),
+                          color: AppColors.foreground.withValues(alpha: 0.8),
                           height: 1.5,
                         ),
                       ),
@@ -195,7 +195,7 @@ class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
                             color: AppColors.secondary,
                             borderRadius: BorderRadius.circular(18),
                             border: Border.all(
-                              color: AppColors.primary.withOpacity(0.15),
+                              color: AppColors.primary.withValues(alpha: 0.15),
                             ),
                           ),
                           child: Text(
@@ -219,14 +219,14 @@ class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
                             end: Alignment.bottomRight,
                             colors: [
                               AppColors.card,
-                              AppColors.card.withOpacity(0.4),
+                              AppColors.card.withValues(alpha: 0.4),
                             ],
                           ),
                           borderRadius: BorderRadius.circular(28),
                           border: Border.all(color: AppColors.border),
                           boxShadow: [
                             BoxShadow(
-                              color: AppColors.primary.withOpacity(0.1),
+                              color: AppColors.primary.withValues(alpha: 0.1),
                               blurRadius: 24,
                               offset: const Offset(0, 8),
                             ),
@@ -240,7 +240,7 @@ class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
                                   width: 48,
                                   height: 48,
                                   decoration: BoxDecoration(
-                                    color: AppColors.primary.withOpacity(0.2),
+                                    color: AppColors.primary.withValues(alpha: 0.2),
                                     shape: BoxShape.circle,
                                   ),
                                   child: const Icon(
@@ -273,7 +273,7 @@ class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
                                     child: CircularProgressIndicator(
                                       value: progress,
                                       strokeWidth: 10,
-                                      backgroundColor: AppColors.secondary.withOpacity(0.2),
+                                      backgroundColor: AppColors.secondary.withValues(alpha: 0.2),
                                       valueColor: const AlwaysStoppedAnimation<Color>(
                                         AppColors.primary,
                                       ),
@@ -319,10 +319,10 @@ class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
                                     width: 56,
                                     height: 56,
                                     decoration: BoxDecoration(
-                                      color: AppColors.secondary.withOpacity(0.4),
+                                      color: AppColors.secondary.withValues(alpha: 0.4),
                                       shape: BoxShape.circle,
                                       border: Border.all(
-                                        color: AppColors.border.withOpacity(0.5),
+                                        color: AppColors.border.withValues(alpha: 0.5),
                                       ),
                                     ),
                                     child: const Icon(
@@ -344,13 +344,13 @@ class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
                                         end: Alignment.bottomRight,
                                         colors: [
                                           AppColors.accent,
-                                          AppColors.accent.withOpacity(0.9),
+                                          AppColors.accent.withValues(alpha: 0.9),
                                         ],
                                       ),
                                       shape: BoxShape.circle,
                                       boxShadow: [
                                         BoxShadow(
-                                          color: AppColors.accent.withOpacity(0.3),
+                                          color: AppColors.accent.withValues(alpha: 0.3),
                                           blurRadius: 16,
                                           offset: const Offset(0, 8),
                                         ),
@@ -389,14 +389,14 @@ class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
                           end: Alignment.bottomRight,
                           colors: [
                             AppColors.card,
-                            AppColors.card.withOpacity(0.4),
+                            AppColors.card.withValues(alpha: 0.4),
                           ],
                         ),
                         borderRadius: BorderRadius.circular(24),
                         border: Border.all(color: AppColors.border),
                         boxShadow: [
                           BoxShadow(
-                            color: AppColors.primary.withOpacity(0.05),
+                            color: AppColors.primary.withValues(alpha: 0.05),
                             blurRadius: 12,
                             offset: const Offset(0, 4),
                           ),
@@ -415,7 +415,7 @@ class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
                                   width: 36,
                                   height: 36,
                                   decoration: BoxDecoration(
-                                    color: AppColors.primary.withOpacity(0.2),
+                                    color: AppColors.primary.withValues(alpha: 0.2),
                                     shape: BoxShape.circle,
                                   ),
                                   child: Center(
@@ -437,7 +437,7 @@ class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
                                       prep.steps[index],
                                       style: TextStyle(
                                         fontSize: 15,
-                                        color: AppColors.foreground.withOpacity(0.85),
+                                        color: AppColors.foreground.withValues(alpha: 0.85),
                                         height: 1.5,
                                       ),
                                     ),
@@ -457,13 +457,13 @@ class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                           colors: [
-                            AppColors.primary.withOpacity(0.1),
-                            AppColors.primary.withOpacity(0.05),
+                            AppColors.primary.withValues(alpha: 0.1),
+                            AppColors.primary.withValues(alpha: 0.05),
                           ],
                         ),
                         borderRadius: BorderRadius.circular(24),
                         border: Border.all(
-                          color: AppColors.primary.withOpacity(0.2),
+                          color: AppColors.primary.withValues(alpha: 0.2),
                         ),
                       ),
                       child: Column(
@@ -495,7 +495,7 @@ class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
                                   children: [
                                     Icon(
                                       Icons.coffee,
-                                      color: AppColors.primary.withOpacity(0.7),
+                                      color: AppColors.primary.withValues(alpha: 0.7),
                                       size: 16,
                                     ),
                                     const SizedBox(width: 12),
@@ -504,7 +504,7 @@ class _PreparationDetailScreenState extends State<PreparationDetailScreen> {
                                         tip,
                                         style: TextStyle(
                                           fontSize: 14,
-                                          color: AppColors.primary.withOpacity(0.9),
+                                          color: AppColors.primary.withValues(alpha: 0.9),
                                           height: 1.5,
                                         ),
                                       ),

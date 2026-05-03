@@ -219,13 +219,13 @@ class _TrackerScreenState extends State<TrackerScreen> {
                                   begin: Alignment.topLeft,
                                   end: Alignment.bottomRight,
                                   colors: [
-                                    AppColors.primary.withOpacity(0.15),
-                                    AppColors.primary.withOpacity(0.1),
+                                    AppColors.primary.withValues(alpha: 0.15),
+                                    AppColors.primary.withValues(alpha: 0.1),
                                   ],
                                 ),
                                 borderRadius: BorderRadius.circular(18),
                                 border: Border.all(
-                                  color: AppColors.primary.withOpacity(0.2),
+                                  color: AppColors.primary.withValues(alpha: 0.2),
                                 ),
                               ),
                               child: const Icon(
@@ -282,17 +282,17 @@ class _TrackerScreenState extends State<TrackerScreen> {
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
                               colors: [
-                                AppColors.primary.withOpacity(0.2),
-                                AppColors.primary.withOpacity(0.1),
+                                AppColors.primary.withValues(alpha: 0.2),
+                                AppColors.primary.withValues(alpha: 0.1),
                               ],
                             ),
                             shape: BoxShape.circle,
                             border: Border.all(
-                              color: AppColors.primary.withOpacity(0.2),
+                              color: AppColors.primary.withValues(alpha: 0.2),
                             ),
                             boxShadow: [
                               BoxShadow(
-                                color: AppColors.primary.withOpacity(0.1),
+                                color: AppColors.primary.withValues(alpha: 0.1),
                                 blurRadius: 24,
                               ),
                             ],
@@ -330,13 +330,13 @@ class _TrackerScreenState extends State<TrackerScreen> {
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
                               colors: [
-                                AppColors.primary.withOpacity(0.1),
-                                AppColors.primary.withOpacity(0.05),
+                                AppColors.primary.withValues(alpha: 0.1),
+                                AppColors.primary.withValues(alpha: 0.05),
                               ],
                             ),
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(
-                              color: AppColors.primary.withOpacity(0.2),
+                              color: AppColors.primary.withValues(alpha: 0.2),
                             ),
                           ),
                           child: const Text(
@@ -436,7 +436,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
               log.notes,
               style: TextStyle(
                 fontSize: 14,
-                color: AppColors.foreground.withOpacity(0.85),
+                color: AppColors.foreground.withValues(alpha: 0.85),
                 height: 1.4,
               ),
             ),
@@ -455,16 +455,16 @@ class _TrackerScreenState extends State<TrackerScreen> {
           end: Alignment.bottomRight,
           colors: [
             AppColors.secondary,
-            AppColors.secondary.withOpacity(0.8),
+            AppColors.secondary.withValues(alpha: 0.8),
           ],
         ),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: AppColors.primary.withOpacity(0.1),
+          color: AppColors.primary.withValues(alpha: 0.1),
         ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withOpacity(0.05),
+            color: AppColors.primary.withValues(alpha: 0.05),
             blurRadius: 12,
           ),
         ],

@@ -72,7 +72,7 @@ class _GardensScreenState extends State<GardensScreen> {
                   end: Alignment.bottomCenter,
                   colors: [
                     AppColors.background,
-                    AppColors.background.withOpacity(0),
+                    AppColors.background.withValues(alpha: 0),
                   ],
                 ),
               ),
@@ -110,9 +110,9 @@ class _GardensScreenState extends State<GardensScreen> {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    AppColors.secondary.withOpacity(0.4),
-                    AppColors.card.withOpacity(0.9),
-                    AppColors.primary.withOpacity(0.15),
+                    AppColors.secondary.withValues(alpha: 0.4),
+                    AppColors.card.withValues(alpha: 0.9),
+                    AppColors.primary.withValues(alpha: 0.15),
                   ],
                 ),
                 borderRadius: BorderRadius.circular(24),
@@ -148,14 +148,14 @@ class _GardensScreenState extends State<GardensScreen> {
                                     colors: _selectedGardenId == garden['id']
                                         ? [AppColors.accent, AppColors.accent]
                                         : [
-                                            AppColors.accent.withOpacity(0.9),
-                                            AppColors.accent.withOpacity(0.7),
+                                            AppColors.accent.withValues(alpha: 0.9),
+                                            AppColors.accent.withValues(alpha: 0.7),
                                           ],
                                   ),
                                   shape: BoxShape.circle,
                                   boxShadow: [
                                     BoxShadow(
-                                      color: AppColors.accent.withOpacity(0.4),
+                                      color: AppColors.accent.withValues(alpha: 0.4),
                                       blurRadius: 12,
                                       offset: const Offset(0, 4),
                                     ),
@@ -175,7 +175,7 @@ class _GardensScreenState extends State<GardensScreen> {
                                     vertical: 6,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: AppColors.background.withOpacity(0.95),
+                                    color: AppColors.background.withValues(alpha: 0.95),
                                     borderRadius: BorderRadius.circular(12),
                                     border: Border.all(color: AppColors.border),
                                   ),
@@ -205,13 +205,13 @@ class _GardensScreenState extends State<GardensScreen> {
                             end: Alignment.bottomRight,
                             colors: [
                               AppColors.accent,
-                              AppColors.accent.withOpacity(0.9),
+                              AppColors.accent.withValues(alpha: 0.9),
                             ],
                           ),
                           shape: BoxShape.circle,
                           boxShadow: [
                             BoxShadow(
-                              color: AppColors.accent.withOpacity(0.3),
+                              color: AppColors.accent.withValues(alpha: 0.3),
                               blurRadius: 16,
                               offset: const Offset(0, 8),
                             ),
@@ -233,10 +233,10 @@ class _GardensScreenState extends State<GardensScreen> {
                           vertical: 6,
                         ),
                         decoration: BoxDecoration(
-                          color: AppColors.background.withOpacity(0.9),
+                          color: AppColors.background.withValues(alpha: 0.9),
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: AppColors.border.withOpacity(0.5),
+                            color: AppColors.border.withValues(alpha: 0.5),
                           ),
                         ),
                         child: const Text(
@@ -267,14 +267,14 @@ class _GardensScreenState extends State<GardensScreen> {
                     end: Alignment.bottomRight,
                     colors: [
                       AppColors.card,
-                      AppColors.card.withOpacity(0.4),
+                      AppColors.card.withValues(alpha: 0.4),
                     ],
                   ),
                   borderRadius: BorderRadius.circular(28),
                   border: Border.all(color: AppColors.border),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.primary.withOpacity(0.2),
+                      color: AppColors.primary.withValues(alpha: 0.2),
                       blurRadius: 24,
                       offset: const Offset(0, 8),
                     ),
@@ -291,7 +291,7 @@ class _GardensScreenState extends State<GardensScreen> {
                           width: 56,
                           height: 56,
                           decoration: BoxDecoration(
-                            color: AppColors.primary.withOpacity(0.2),
+                            color: AppColors.primary.withValues(alpha: 0.2),
                             borderRadius: BorderRadius.circular(18),
                           ),
                           child: const Icon(
@@ -310,7 +310,7 @@ class _GardensScreenState extends State<GardensScreen> {
                             width: 36,
                             height: 36,
                             decoration: BoxDecoration(
-                              color: AppColors.secondary.withOpacity(0.5),
+                              color: AppColors.secondary.withValues(alpha: 0.5),
                               shape: BoxShape.circle,
                             ),
                             child: const Icon(
@@ -336,7 +336,7 @@ class _GardensScreenState extends State<GardensScreen> {
                       selectedGarden['description'] as String,
                       style: TextStyle(
                         fontSize: 14,
-                        color: AppColors.foreground.withOpacity(0.75),
+                        color: AppColors.foreground.withValues(alpha: 0.75),
                         height: 1.5,
                       ),
                     ),
@@ -420,7 +420,7 @@ class GridPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = AppColors.primary.withOpacity(0.1)
+      ..color = AppColors.primary.withValues(alpha: 0.1)
       ..strokeWidth = 1;
 
     const gridSize = 40.0;

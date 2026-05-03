@@ -113,7 +113,7 @@ class _HerbDetailScreenState extends State<HerbDetailScreen> {
                         end: Alignment.bottomCenter,
                         colors: [
                           Colors.transparent,
-                          Colors.black.withOpacity(0.7),
+                          Colors.black.withValues(alpha: 0.7),
                         ],
                       ),
                     ),
@@ -247,7 +247,7 @@ class _HerbDetailScreenState extends State<HerbDetailScreen> {
             content,
             style: TextStyle(
               fontSize: 14,
-              color: AppColors.foreground.withOpacity(0.8),
+              color: AppColors.foreground.withValues(alpha: 0.8),
               height: 1.5,
             ),
           ),
@@ -316,7 +316,7 @@ class _HerbDetailScreenState extends State<HerbDetailScreen> {
                           fontSize: 14,
                           color: isWarning
                               ? const Color(0xFFDC2626)
-                              : AppColors.foreground.withOpacity(0.8),
+                              : AppColors.foreground.withValues(alpha: 0.8),
                           height: 1.5,
                         ),
                       ),

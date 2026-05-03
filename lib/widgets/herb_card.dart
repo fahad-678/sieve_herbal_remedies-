@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/herb.dart';
 import '../theme/app_colors.dart';
-import '../utils/storage.dart';
 
 class HerbCard extends StatelessWidget {
   final Herb herb;
@@ -33,7 +32,7 @@ class HerbCard extends StatelessWidget {
               width: 80,
               height: 80,
               decoration: BoxDecoration(
-                color: AppColors.secondary.withOpacity(0.3),
+                color: AppColors.secondary.withValues(alpha: 0.3),
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(12),
                   bottomLeft: Radius.circular(12),
@@ -76,7 +75,7 @@ class HerbCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.herb.name,
+                      herb.name,
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -85,7 +84,7 @@ class HerbCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      widget.herb.scientificName,
+                      herb.scientificName,
                       style: const TextStyle(
                         fontSize: 12,
                         fontStyle: FontStyle.italic,
@@ -99,11 +98,11 @@ class HerbCard extends StatelessWidget {
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: AppColors.secondary.withOpacity(0.5),
+                        color: AppColors.secondary.withValues(alpha: 0.5),
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Text(
-                        widget.herb.category,
+                        herb.category,
                         style: const TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w500,

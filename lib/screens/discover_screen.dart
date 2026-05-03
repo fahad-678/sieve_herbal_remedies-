@@ -161,7 +161,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                         children: [
                           Icon(
                             Icons.search,
-                            color: AppColors.primary.withOpacity(0.6),
+                            color: AppColors.primary.withValues(alpha: 0.6),
                             size: 20,
                           ),
                           const SizedBox(width: 14),
@@ -179,7 +179,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                                 hintStyle: TextStyle(
                                   fontSize: 15,
                                   color: AppColors.mutedForeground
-                                      .withOpacity(0.7),
+                                      .withValues(alpha: 0.7),
                                 ),
                                 border: InputBorder.none,
                                 isDense: true,
@@ -198,10 +198,10 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                        color: AppColors.secondary.withOpacity(0.3),
+                        color: AppColors.secondary.withValues(alpha: 0.3),
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
-                          color: AppColors.primary.withOpacity(0.1),
+                          color: AppColors.primary.withValues(alpha: 0.1),
                         ),
                       ),
                       child: Row(
@@ -366,12 +366,12 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     decoration: BoxDecoration(
                       color: isSelected
                           ? AppColors.primary
-                          : AppColors.secondary.withOpacity(0.3),
+                          : AppColors.secondary.withValues(alpha: 0.3),
                       borderRadius: BorderRadius.circular(14),
                       boxShadow: isSelected
                           ? [
                               BoxShadow(
-                                color: AppColors.primary.withOpacity(0.3),
+                                color: AppColors.primary.withValues(alpha: 0.3),
                                 blurRadius: 8,
                               ),
                             ]
@@ -485,14 +485,14 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             end: Alignment.bottomRight,
             colors: [
               AppColors.card,
-              AppColors.card.withOpacity(0.4),
+              AppColors.card.withValues(alpha: 0.4),
             ],
           ),
           borderRadius: BorderRadius.circular(24),
           border: Border.all(color: AppColors.border),
           boxShadow: [
             BoxShadow(
-              color: AppColors.primary.withOpacity(0.05),
+              color: AppColors.primary.withValues(alpha: 0.05),
               blurRadius: 12,
               offset: const Offset(0, 4),
             ),
@@ -522,7 +522,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                         cacheHeight: 224,
                         errorBuilder: (context, error, stackTrace) {
                           return Container(
-                            color: AppColors.secondary.withOpacity(0.3),
+                            color: AppColors.secondary.withValues(alpha: 0.3),
                             child: const Icon(
                               Icons.local_florist,
                               color: AppColors.muted,
@@ -537,7 +537,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                         cacheHeight: 224,
                         errorBuilder: (context, error, stackTrace) {
                           return Container(
-                            color: AppColors.secondary.withOpacity(0.3),
+                            color: AppColors.secondary.withValues(alpha: 0.3),
                             child: const Icon(
                               Icons.local_florist,
                               color: AppColors.muted,
@@ -571,10 +571,10 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                             vertical: 4,
                           ),
                           decoration: BoxDecoration(
-                            color: AppColors.primary.withOpacity(0.15),
+                            color: AppColors.primary.withValues(alpha: 0.15),
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(
-                              color: AppColors.primary.withOpacity(0.2),
+                              color: AppColors.primary.withValues(alpha: 0.2),
                             ),
                           ),
                           child: Text(
@@ -594,7 +594,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                       style: TextStyle(
                         fontSize: 12,
                         fontStyle: FontStyle.italic,
-                        color: AppColors.mutedForeground.withOpacity(0.8),
+                        color: AppColors.mutedForeground.withValues(alpha: 0.8),
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -619,7 +619,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   width: 40,
                   height: 40,
                   decoration: BoxDecoration(
-                    color: AppColors.accent.withOpacity(0.1),
+                    color: AppColors.accent.withValues(alpha: 0.1),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
@@ -672,7 +672,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
-                    color: AppColors.chart3.withOpacity(0.15),
+                    color: AppColors.chart3.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(999),
                   ),
                   child: Text(
@@ -693,7 +693,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontSize: 13,
-                color: AppColors.mutedForeground.withOpacity(0.9),
+                color: AppColors.mutedForeground.withValues(alpha: 0.9),
                 height: 1.45,
               ),
             ),
@@ -734,7 +734,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             end: Alignment.bottomRight,
             colors: [
               AppColors.card,
-              AppColors.card.withOpacity(0.45),
+              AppColors.card.withValues(alpha: 0.45),
             ],
           ),
           borderRadius: BorderRadius.circular(20),
@@ -759,7 +759,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
-                    color: AppColors.primary.withOpacity(0.1),
+                    color: AppColors.primary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(999),
                   ),
                   child: Text(
@@ -780,7 +780,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontSize: 13,
-                color: AppColors.mutedForeground.withOpacity(0.9),
+                color: AppColors.mutedForeground.withValues(alpha: 0.9),
                 height: 1.45,
               ),
             ),
@@ -793,7 +793,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   decoration: BoxDecoration(
-                    color: AppColors.secondary.withOpacity(0.5),
+                    color: AppColors.secondary.withValues(alpha: 0.5),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Text(

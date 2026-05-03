@@ -505,31 +505,6 @@ class HerbsData {
     return merged.values.toList();
   }
 
-  static List<Herb> _parseImportedHerbs(String rawJson) {
-    final decoded = jsonDecode(rawJson);
-    final rawHerbs = <Map<String, dynamic>>[];
-
-    if (decoded is Map<String, dynamic>) {
-      for (final value in decoded.values) {
-        if (value is List) {
-          for (final item in value) {
-            if (item is Map) {
-              rawHerbs.add(Map<String, dynamic>.from(item));
-            }
-          }
-        }
-      }
-    } else if (decoded is List) {
-      for (final item in decoded) {
-        if (item is Map) {
-          rawHerbs.add(Map<String, dynamic>.from(item));
-        }
-      }
-    }
-
-    return rawHerbs.map(_herbFromJson).toList();
-  }
-
 // (moved helper below class to remain top-level)
 
   static Herb _herbFromJson(Map<String, dynamic> json) {

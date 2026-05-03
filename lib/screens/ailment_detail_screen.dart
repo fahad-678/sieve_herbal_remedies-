@@ -76,10 +76,10 @@ class AilmentDetailScreen extends StatelessWidget {
                         vertical: 10,
                       ),
                       decoration: BoxDecoration(
-                        color: AppColors.chart3.withOpacity(0.2),
+                        color: AppColors.chart3.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(
-                          color: AppColors.chart3.withOpacity(0.3),
+                          color: AppColors.chart3.withValues(alpha: 0.3),
                         ),
                       ),
                       child: Row(
@@ -168,7 +168,7 @@ class AilmentDetailScreen extends StatelessWidget {
                                     ),
                                     decoration: BoxDecoration(
                                       color:
-                                          AppColors.secondary.withOpacity(0.5),
+                                          AppColors.secondary.withValues(alpha: 0.5),
                                       borderRadius: BorderRadius.circular(12),
                                       border:
                                           Border.all(color: AppColors.border),
@@ -208,14 +208,14 @@ class AilmentDetailScreen extends StatelessWidget {
           end: Alignment.bottomRight,
           colors: [
             AppColors.card,
-            AppColors.card.withOpacity(0.4),
+            AppColors.card.withValues(alpha: 0.4),
           ],
         ),
         borderRadius: BorderRadius.circular(24),
         border: Border.all(color: AppColors.border),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withOpacity(0.05),
+            color: AppColors.primary.withValues(alpha: 0.05),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -237,7 +237,7 @@ class AilmentDetailScreen extends StatelessWidget {
             content,
             style: TextStyle(
               fontSize: 15,
-              color: AppColors.foreground.withOpacity(0.8),
+              color: AppColors.foreground.withValues(alpha: 0.8),
               height: 1.5,
             ),
           ),
@@ -253,8 +253,8 @@ class AilmentDetailScreen extends StatelessWidget {
     bool isWarning = false,
   }) {
     final primaryColors = [
-      AppColors.primary.withOpacity(0.1),
-      AppColors.primary.withOpacity(0.05),
+      AppColors.primary.withValues(alpha: 0.1),
+      AppColors.primary.withValues(alpha: 0.05),
     ];
 
     final warningColors = [
@@ -264,7 +264,7 @@ class AilmentDetailScreen extends StatelessWidget {
 
     final defaultColors = [
       AppColors.card,
-      AppColors.card.withOpacity(0.4),
+      AppColors.card.withValues(alpha: 0.4),
     ];
 
     final cardColors = isWarning
@@ -290,12 +290,12 @@ class AilmentDetailScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         border: Border.all(
           color: isPrimary || isWarning
-              ? accentColor.withOpacity(0.2)
+              ? accentColor.withValues(alpha: 0.2)
               : AppColors.border,
         ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withOpacity(0.05),
+            color: AppColors.primary.withValues(alpha: 0.05),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -333,7 +333,7 @@ class AilmentDetailScreen extends StatelessWidget {
                         item,
                         style: TextStyle(
                           fontSize: 14,
-                          color: accentColor.withOpacity(0.9),
+                          color: accentColor.withValues(alpha: 0.9),
                           height: 1.5,
                         ),
                       ),

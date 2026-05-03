@@ -138,14 +138,14 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             end: Alignment.bottomRight,
             colors: [
               AppColors.card,
-              AppColors.card.withOpacity(0.4),
+              AppColors.card.withValues(alpha: 0.4),
             ],
           ),
           borderRadius: BorderRadius.circular(24),
           border: Border.all(color: AppColors.border),
           boxShadow: [
             BoxShadow(
-              color: AppColors.primary.withOpacity(0.05),
+              color: AppColors.primary.withValues(alpha: 0.05),
               blurRadius: 12,
               offset: const Offset(0, 4),
             ),
@@ -175,7 +175,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                         cacheHeight: 224,
                         errorBuilder: (context, error, stackTrace) {
                           return Container(
-                            color: AppColors.secondary.withOpacity(0.3),
+                            color: AppColors.secondary.withValues(alpha: 0.3),
                             child: const Icon(
                               Icons.local_florist,
                               color: AppColors.muted,
@@ -190,7 +190,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                         cacheHeight: 224,
                         errorBuilder: (context, error, stackTrace) {
                           return Container(
-                            color: AppColors.secondary.withOpacity(0.3),
+                            color: AppColors.secondary.withValues(alpha: 0.3),
                             child: const Icon(
                               Icons.local_florist,
                               color: AppColors.muted,
@@ -224,10 +224,10 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                             vertical: 4,
                           ),
                           decoration: BoxDecoration(
-                            color: AppColors.primary.withOpacity(0.15),
+                            color: AppColors.primary.withValues(alpha: 0.15),
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(
-                              color: AppColors.primary.withOpacity(0.2),
+                              color: AppColors.primary.withValues(alpha: 0.2),
                             ),
                           ),
                           child: Text(
@@ -247,7 +247,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                       style: TextStyle(
                         fontSize: 12,
                         fontStyle: FontStyle.italic,
-                        color: AppColors.mutedForeground.withOpacity(0.8),
+                        color: AppColors.mutedForeground.withValues(alpha: 0.8),
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -272,7 +272,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                   width: 40,
                   height: 40,
                   decoration: BoxDecoration(
-                    color: AppColors.accent.withOpacity(0.1),
+                    color: AppColors.accent.withValues(alpha: 0.1),
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(
