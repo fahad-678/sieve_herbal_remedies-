@@ -184,7 +184,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                         },
                       )
                     : Image.asset(
-                        herb.imageUrl,
+                        herb.assetImagePath,
                         fit: BoxFit.cover,
                         cacheWidth: 224,
                         cacheHeight: 224,

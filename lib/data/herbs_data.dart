@@ -474,7 +474,7 @@ class HerbsData {
 
     try {
       final rawJson = await rootBundle.loadString(
-        'lib/data/json/herbal_remedies.json',
+        'assets/herbs_data.json',
       );
       final importedRaw = await compute(_parseImportedHerbsToRaw, rawJson);
       final importedHerbs = importedRaw.map(_herbFromJson).toList();

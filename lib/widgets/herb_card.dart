@@ -58,7 +58,7 @@ class HerbCard extends StatelessWidget {
                             ),
                           )
                         : Image.asset(
-                            herb.imageUrl,
+                          herb.assetImagePath,
                             fit: BoxFit.cover,
                             cacheWidth: 160,
                             cacheHeight: 160,

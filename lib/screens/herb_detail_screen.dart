@@ -95,7 +95,7 @@ class _HerbDetailScreenState extends State<HerbDetailScreen> {
                           ),
                         )
                       : Image.asset(
-                          herb.imageUrl,
+                          herb.assetImagePath,
                           fit: BoxFit.cover,
                           errorBuilder: (context, error, stackTrace) =>
                               Container(

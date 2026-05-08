@@ -41,7 +41,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         if (herb.hasNetworkImage && herb.imageUrl.isNotEmpty) {
           precacheImage(NetworkImage(herb.imageUrl), context);
         } else if (!herb.hasNetworkImage && herb.imageUrl.isNotEmpty) {
-          precacheImage(AssetImage(herb.imageUrl), context);
+          precacheImage(AssetImage(herb.assetImagePath), context);
         }
       }
     } catch (_) {
@@ -531,7 +531,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                         },
                       )
                     : Image.asset(
-                        herb.imageUrl,
+                      herb.assetImagePath,
                         fit: BoxFit.cover,
                         cacheWidth: 224,
                         cacheHeight: 224,

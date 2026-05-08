@@ -209,7 +209,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                           child: herbOfDay.hasNetworkImage
                                               ? Image.network(
-                                                  herbOfDay.imageUrl,
+                                                      herbOfDay.imageUrl,
                                                   width: double.infinity,
                                                   height: 200,
                                                   fit: BoxFit.cover,
@@ -229,8 +229,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     );
                                                   },
                                                 )
-                                              : Image.asset(
-                                                  herbOfDay.imageUrl,
+                                                  : Image.asset(
+                                                      herbOfDay.assetImagePath,
                                                   width: double.infinity,
                                                   height: 200,
                                                   fit: BoxFit.cover,
@@ -847,7 +847,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       )
                     : Image.asset(
-                        herb.imageUrl,
+                      herb.assetImagePath,
                         fit: BoxFit.cover,
                         cacheWidth: 224,
                         cacheHeight: 224,

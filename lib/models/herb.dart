@@ -59,4 +59,17 @@ class Herb {
 
   bool get hasNetworkImage =>
       imageUrl.startsWith('http://') || imageUrl.startsWith('https://');
+
+  /// Resolved asset path for local images.
+  ///
+  /// If `imageUrl` is a network URL, this returns the original value so callers
+  /// can use `Image.network(...)`. If `imageUrl` already begins with
+  /// `assets/`, it is returned unchanged. Otherwise the value is prefixed with
+  /// `assets/` so `Image.asset(herb.assetImagePath)` works for JSON entries
+  /// like `herb_images/ashwagandha.jpg`.
+  String get assetImagePath {
+    if (hasNetworkImage) return imageUrl;
+    if (imageUrl.startsWith('assets/')) return imageUrl;
+    return 'assets/$imageUrl';
+  }
 }

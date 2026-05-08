@@ -23,7 +23,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
-    - lib/data/json/herbal_remedies.json
+    - assets/herbs_data.json
+    - assets/herb_images/
 
 flutter_icons:
   android: true
