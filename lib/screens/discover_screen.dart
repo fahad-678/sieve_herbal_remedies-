@@ -7,6 +7,7 @@ import '../data/herbs_data.dart';
 import '../data/preparations_data.dart';
 import '../theme/app_colors.dart';
 import '../utils/storage.dart';
+import '../widgets/optimized_herb_image.dart';
 import 'ailment_detail_screen.dart';
 import 'herb_detail_screen.dart';
 import 'preparation_detail_screen.dart';
@@ -31,22 +32,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   void initState() {
     super.initState();
     _loadFavorites();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _precacheFeaturedImages());
-  }
-
-  void _precacheFeaturedImages() {
-    try {
-      final featured = HerbsData.getFeaturedHerbs();
-      for (final herb in featured) {
-        if (herb.hasNetworkImage && herb.imageUrl.isNotEmpty) {
-          precacheImage(NetworkImage(herb.imageUrl), context);
-        } else if (!herb.hasNetworkImage && herb.imageUrl.isNotEmpty) {
-          precacheImage(AssetImage(herb.assetImagePath), context);
-        }
-      }
-    } catch (_) {
-      // ignore precache errors
-    }
+    // Precaching is now handled by CachedNetworkImage and asset decode hints
   }
 
   Future<void> _loadFavorites() async {
@@ -509,42 +495,17 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   bottomLeft: Radius.circular(24),
                 ),
               ),
-              child: ClipRRect(
+              child: OptimizedHerbImage(
+                herb: herb,
+                width: 112,
+                height: 112,
+                fit: BoxFit.cover,
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(24),
                   bottomLeft: Radius.circular(24),
                 ),
-                child: herb.hasNetworkImage
-                    ? Image.network(
-                        herb.imageUrl,
-                        fit: BoxFit.cover,
-                        cacheWidth: 224,
-                        cacheHeight: 224,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Container(
-                            color: AppColors.secondary.withValues(alpha: 0.3),
-                            child: const Icon(
-                              Icons.local_florist,
-                              color: AppColors.muted,
-                            ),
-                          );
-                        },
-                      )
-                    : Image.asset(
-                      herb.assetImagePath,
-                        fit: BoxFit.cover,
-                        cacheWidth: 224,
-                        cacheHeight: 224,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Container(
-                            color: AppColors.secondary.withValues(alpha: 0.3),
-                            child: const Icon(
-                              Icons.local_florist,
-                              color: AppColors.muted,
-                            ),
-                          );
-                        },
-                      ),
+                showPlaceholder: true,
+                pixelRatio: 2.0,
               ),
             ),
             Expanded(

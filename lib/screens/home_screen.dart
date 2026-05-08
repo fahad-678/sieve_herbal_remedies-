@@ -8,6 +8,7 @@ import '../data/herbs_data.dart';
 import '../data/preparations_data.dart';
 import '../theme/app_colors.dart';
 import '../utils/storage.dart';
+import '../widgets/optimized_herb_image.dart';
 import 'ailment_detail_screen.dart';
 import 'herb_detail_screen.dart';
 import 'preparation_detail_screen.dart';
@@ -120,7 +121,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 borderRadius: BorderRadius.circular(20),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: AppColors.primary.withValues(alpha: 0.2),
+                                    color: AppColors.primary
+                                        .withValues(alpha: 0.2),
                                     blurRadius: 8,
                                     offset: const Offset(0, 4),
                                   ),
@@ -183,7 +185,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 borderRadius: BorderRadius.circular(28),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: AppColors.primary.withValues(alpha: 0.3),
+                                    color: AppColors.primary
+                                        .withValues(alpha: 0.3),
                                     blurRadius: 24,
                                     offset: const Offset(0, 8),
                                   ),
@@ -202,54 +205,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     child: Stack(
                                       children: [
-                                        ClipRRect(
+                                        OptimizedHerbImage(
+                                          herb: herbOfDay,
+                                          width: double.infinity,
+                                          height: 200,
+                                          fit: BoxFit.cover,
                                           borderRadius: const BorderRadius.only(
                                             topLeft: Radius.circular(28),
                                             topRight: Radius.circular(28),
                                           ),
-                                          child: herbOfDay.hasNetworkImage
-                                              ? Image.network(
-                                                      herbOfDay.imageUrl,
-                                                  width: double.infinity,
-                                                  height: 200,
-                                                  fit: BoxFit.cover,
-                                                  opacity:
-                                                      const AlwaysStoppedAnimation(
-                                                          0.4),
-                                                  errorBuilder: (context, error,
-                                                      stackTrace) {
-                                                    return Container(
-                                                      color: AppColors.primary
-                                                          .withValues(alpha: 0.3),
-                                                      child: const Icon(
-                                                        Icons.local_florist,
-                                                        size: 64,
-                                                        color: Colors.white54,
-                                                      ),
-                                                    );
-                                                  },
-                                                )
-                                                  : Image.asset(
-                                                      herbOfDay.assetImagePath,
-                                                  width: double.infinity,
-                                                  height: 200,
-                                                  fit: BoxFit.cover,
-                                                  opacity:
-                                                      const AlwaysStoppedAnimation(
-                                                          0.4),
-                                                  errorBuilder: (context, error,
-                                                      stackTrace) {
-                                                    return Container(
-                                                      color: AppColors.primary
-                                                          .withValues(alpha: 0.3),
-                                                      child: const Icon(
-                                                        Icons.local_florist,
-                                                        size: 64,
-                                                        color: Colors.white54,
-                                                      ),
-                                                    );
-                                                  },
-                                                ),
+                                          opacity: 0.4,
+                                          showPlaceholder: true,
+                                          pixelRatio: 2.0,
                                         ),
                                         Container(
                                           decoration: BoxDecoration(
@@ -327,8 +294,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           style: TextStyle(
                                             fontSize: 14,
                                             fontStyle: FontStyle.italic,
-                                            color:
-                                                Colors.white.withValues(alpha: 0.7),
+                                            color: Colors.white
+                                                .withValues(alpha: 0.7),
                                           ),
                                         ),
                                         const SizedBox(height: 16),
@@ -336,8 +303,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           herbOfDay.briefDescription,
                                           style: TextStyle(
                                             fontSize: 15,
-                                            color:
-                                                Colors.white.withValues(alpha: 0.9),
+                                            color: Colors.white
+                                                .withValues(alpha: 0.9),
                                             height: 1.5,
                                           ),
                                         ),
@@ -387,7 +354,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             boxShadow: [
                               BoxShadow(
-                                color: AppColors.primary.withValues(alpha: 0.05),
+                                color:
+                                    AppColors.primary.withValues(alpha: 0.05),
                                 blurRadius: 12,
                                 offset: const Offset(0, 4),
                               ),
@@ -399,11 +367,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 width: 48,
                                 height: 48,
                                 decoration: BoxDecoration(
-                                  color: AppColors.primary.withValues(alpha: 0.2),
+                                  color:
+                                      AppColors.primary.withValues(alpha: 0.2),
                                   borderRadius: BorderRadius.circular(18),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: AppColors.primary.withValues(alpha: 0.1),
+                                      color: AppColors.primary
+                                          .withValues(alpha: 0.1),
                                       blurRadius: 8,
                                     ),
                                   ],
@@ -487,7 +457,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             boxShadow: [
                               BoxShadow(
-                                color: AppColors.primary.withValues(alpha: 0.05),
+                                color:
+                                    AppColors.primary.withValues(alpha: 0.05),
                                 blurRadius: 12,
                               ),
                             ],
@@ -825,42 +796,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   bottomLeft: Radius.circular(24),
                 ),
               ),
-              child: ClipRRect(
+              child: OptimizedHerbImage(
+                herb: herb,
+                width: 112,
+                height: 112,
+                fit: BoxFit.cover,
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(24),
                   bottomLeft: Radius.circular(24),
                 ),
-                child: herb.hasNetworkImage
-                    ? Image.network(
-                        herb.imageUrl,
-                        fit: BoxFit.cover,
-                        cacheWidth: 224,
-                        cacheHeight: 224,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Container(
-                            color: AppColors.secondary.withValues(alpha: 0.3),
-                            child: const Icon(
-                              Icons.local_florist,
-                              color: AppColors.muted,
-                            ),
-                          );
-                        },
-                      )
-                    : Image.asset(
-                      herb.assetImagePath,
-                        fit: BoxFit.cover,
-                        cacheWidth: 224,
-                        cacheHeight: 224,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Container(
-                            color: AppColors.secondary.withValues(alpha: 0.3),
-                            child: const Icon(
-                              Icons.local_florist,
-                              color: AppColors.muted,
-                            ),
-                          );
-                        },
-                      ),
+                showPlaceholder: true,
+                pixelRatio: 2.0,
               ),
             ),
             Expanded(

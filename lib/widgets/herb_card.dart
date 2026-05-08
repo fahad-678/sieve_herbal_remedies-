@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/herb.dart';
 import '../theme/app_colors.dart';
+import 'optimized_herb_image.dart';
 
 class HerbCard extends StatelessWidget {
   final Herb herb;
@@ -40,34 +41,17 @@ class HerbCard extends StatelessWidget {
                       bottomLeft: Radius.circular(12),
                     ),
                   ),
-                  child: ClipRRect(
+                  child: OptimizedHerbImage(
+                    herb: herb,
+                    width: 80,
+                    height: 80,
+                    fit: BoxFit.cover,
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(12),
                       bottomLeft: Radius.circular(12),
                     ),
-                    child: herb.hasNetworkImage
-                        ? Image.network(
-                            herb.imageUrl,
-                            fit: BoxFit.cover,
-                            cacheWidth: 160,
-                            cacheHeight: 160,
-                            errorBuilder: (context, error, stackTrace) =>
-                                const Icon(
-                              Icons.local_florist,
-                              color: AppColors.muted,
-                            ),
-                          )
-                        : Image.asset(
-                          herb.assetImagePath,
-                            fit: BoxFit.cover,
-                            cacheWidth: 160,
-                            cacheHeight: 160,
-                            errorBuilder: (context, error, stackTrace) =>
-                                const Icon(
-                              Icons.local_florist,
-                              color: AppColors.muted,
-                            ),
-                          ),
+                    showPlaceholder: true,
+                    pixelRatio: 2.0,
                   ),
                 ),
                 Expanded(

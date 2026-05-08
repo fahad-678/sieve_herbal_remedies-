@@ -3,6 +3,7 @@ import '../data/herbs_data.dart';
 import '../theme/app_colors.dart';
 import '../utils/storage.dart';
 import '../widgets/educational_disclaimer_card.dart';
+import '../widgets/optimized_herb_image.dart';
 
 class HerbDetailScreen extends StatefulWidget {
   final String herbId;
@@ -80,33 +81,14 @@ class _HerbDetailScreenState extends State<HerbDetailScreen> {
               background: Stack(
                 fit: StackFit.expand,
                 children: [
-                  herb.hasNetworkImage
-                      ? Image.network(
-                          herb.imageUrl,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) =>
-                              Container(
-                            color: AppColors.secondary,
-                            child: const Icon(
-                              Icons.local_florist,
-                              size: 64,
-                              color: AppColors.muted,
-                            ),
-                          ),
-                        )
-                      : Image.asset(
-                          herb.assetImagePath,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) =>
-                              Container(
-                            color: AppColors.secondary,
-                            child: const Icon(
-                              Icons.local_florist,
-                              size: 64,
-                              color: AppColors.muted,
-                            ),
-                          ),
-                        ),
+                  OptimizedHerbImage(
+                    herb: herb,
+                    width: double.infinity,
+                    height: 250,
+                    fit: BoxFit.cover,
+                    showPlaceholder: true,
+                    pixelRatio: 2.0,
+                  ),
                   Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(

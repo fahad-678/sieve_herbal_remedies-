@@ -13,6 +13,15 @@ Future<void> main() async {
       statusBarIconBrightness: Brightness.dark,
     ),
   );
+
+  // Configure image cache for optimal memory and disk usage.
+  // Herb images are typically small to medium resolution, so conservative limits.
+  imageCache.maximumSize = 100; // max 100 images in memory
+  imageCache.maximumSizeBytes = 100 * 1024 * 1024; // max 100 MB in memory
+
+  // CachedNetworkImage disk cache is managed by DefaultCacheManager
+  // Cache entries are kept for 30 days by default
+
   await HerbsData.initialize();
   runApp(const SieveApp());
 }
