@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'data/herbs_data.dart';
 import 'theme/app_colors.dart';
 import 'navigation/app_navigator.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +22,7 @@ Future<void> main() async {
 
   // CachedNetworkImage disk cache is managed by DefaultCacheManager
   // Cache entries are kept for 30 days by default
-
+  await dotenv.load(fileName: ".env");
   await HerbsData.initialize();
   runApp(const SieveApp());
 }

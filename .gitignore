@@ -52,3 +52,5 @@ key.properties
 
 assets/images
 assets/herb_images
+
+.env

@@ -1,5 +1,6 @@
+// lib/models/garden.dart
 class Garden {
-  final int id;
+  final String id;
   final String name;
   final String description;
   final String address;
@@ -9,6 +10,8 @@ class Garden {
   final String phone;
   final double mapTop;
   final double mapLeft;
+  final double lat;
+  final double lng;
 
   const Garden({
     required this.id,
@@ -21,5 +24,7 @@ class Garden {
     required this.phone,
     required this.mapTop,
     required this.mapLeft,
+    required this.lat,
+    required this.lng,
   });
 }
