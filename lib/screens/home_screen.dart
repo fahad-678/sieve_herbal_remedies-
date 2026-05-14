@@ -23,11 +23,19 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   String _activeTab = 'herbs';
   Set<String> _favoriteHerbs = {};
+  final TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
 
   @override
   void initState() {
     super.initState();
     _loadFavorites();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   Future<void> _loadFavorites() async {
@@ -52,12 +60,47 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  List<Herb> get _filteredHerbs {
+    final query = _searchQuery.trim();
+    if (query.isEmpty) {
+      return HerbsData.getFeaturedHerbs().take(5).toList();
+    }
+    return HerbsData.searchHerbs(query);
+  }
+
+  List<Ailment> get _filteredAilments {
+    final query = _searchQuery.trim();
+    if (query.isEmpty) {
+      return AilmentsData.ailments;
+    }
+    return AilmentsData.searchAilments(query);
+  }
+
+  List<Preparation> get _filteredPreparations {
+    final query = _searchQuery.trim();
+    final preparations = PreparationsData.getAllPreparations();
+    if (query.isEmpty) {
+      return preparations;
+    }
+    final lowerQuery = query.toLowerCase();
+    return preparations.where((preparation) {
+      return preparation.name.toLowerCase().contains(lowerQuery) ||
+          preparation.description.toLowerCase().contains(lowerQuery) ||
+          preparation.bestFor
+              .any((item) => item.toLowerCase().contains(lowerQuery));
+    }).toList();
+  }
+
+  void _updateSearchQuery(String value) {
+    setState(() {
+      _searchQuery = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final featuredHerbs = HerbsData.getFeaturedHerbs().take(5).toList();
-    final ailments = AilmentsData.ailments;
-    final preparations = PreparationsData.getAllPreparations();
     final herbOfDay = HerbsData.getHerbById('chamomile');
+    final query = _searchQuery.trim();
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -434,12 +477,25 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               const SizedBox(width: 14),
                               Expanded(
-                                child: Text(
-                                  'Search herbs, ailments & preparations...',
-                                  style: TextStyle(
+                                child: TextField(
+                                  controller: _searchController,
+                                  onChanged: _updateSearchQuery,
+                                  textInputAction: TextInputAction.search,
+                                  decoration: InputDecoration(
+                                    hintText:
+                                        'Search herbs, ailments & preparations...',
+                                    hintStyle: TextStyle(
+                                      fontSize: 15,
+                                      color: AppColors.mutedForeground
+                                          .withValues(alpha: 0.7),
+                                    ),
+                                    border: InputBorder.none,
+                                    isDense: true,
+                                    contentPadding: EdgeInsets.zero,
+                                  ),
+                                  style: const TextStyle(
                                     fontSize: 15,
-                                    color: AppColors.mutedForeground
-                                        .withValues(alpha: 0.7),
+                                    color: AppColors.foreground,
                                   ),
                                 ),
                               ),
@@ -476,11 +532,17 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         const SizedBox(height: 20),
                         Text(
-                          _activeTab == 'herbs'
-                              ? 'Popular Herbs'
-                              : _activeTab == 'ailments'
-                                  ? 'Common Ailments'
-                                  : 'Preparation Methods',
+                          query.isNotEmpty
+                              ? (_activeTab == 'herbs'
+                                  ? 'Herb Results'
+                                  : _activeTab == 'ailments'
+                                      ? 'Ailment Results'
+                                      : 'Preparation Results')
+                              : _activeTab == 'herbs'
+                                  ? 'Popular Herbs'
+                                  : _activeTab == 'ailments'
+                                      ? 'Common Ailments'
+                                      : 'Preparation Methods',
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
@@ -494,46 +556,132 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 SliverPadding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
-                  sliver: SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        if (_activeTab == 'ailments') {
-                          final ailment = ailments[index];
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 16),
-                            child: _buildAilmentCard(ailment),
-                          );
-                        }
-
-                        if (_activeTab == 'preparations') {
-                          final preparation = preparations[index];
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 16),
-                            child: _buildPreparationCard(preparation),
-                          );
-                        }
-
-                        final herb = featuredHerbs[index];
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 16),
-                          child: _buildHerbCard(
-                            herb,
-                            _favoriteHerbs.contains(herb.id),
-                          ),
-                        );
-                      },
-                      childCount: _activeTab == 'ailments'
-                          ? ailments.length
-                          : _activeTab == 'preparations'
-                              ? preparations.length
-                              : featuredHerbs.length,
-                    ),
-                  ),
+                  sliver: _activeTab == 'ailments'
+                      ? _buildAilmentResults()
+                      : _activeTab == 'preparations'
+                          ? _buildPreparationResults()
+                          : _buildHerbResults(),
                 ),
                 const SliverToBoxAdapter(
                   child: SizedBox(height: 100),
                 ),
               ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHerbResults() {
+    if (_filteredHerbs.isEmpty) {
+      return _buildEmptyState(
+        title: 'No herbs found',
+        message: _searchQuery.trim().isEmpty
+            ? 'There are no featured herbs to show right now.'
+            : 'No herbs match "${_searchQuery.trim()}".',
+      );
+    }
+
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          final herb = _filteredHerbs[index];
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 16),
+            child: _buildHerbCard(
+              herb,
+              _favoriteHerbs.contains(herb.id),
+            ),
+          );
+        },
+        childCount: _filteredHerbs.length,
+      ),
+    );
+  }
+
+  Widget _buildAilmentResults() {
+    if (_filteredAilments.isEmpty) {
+      return _buildEmptyState(
+        title: 'No ailments found',
+        message: 'No ailments match "${_searchQuery.trim()}".',
+      );
+    }
+
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          final ailment = _filteredAilments[index];
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 16),
+            child: _buildAilmentCard(ailment),
+          );
+        },
+        childCount: _filteredAilments.length,
+      ),
+    );
+  }
+
+  Widget _buildPreparationResults() {
+    if (_filteredPreparations.isEmpty) {
+      return _buildEmptyState(
+        title: 'No preparations found',
+        message: 'No preparations match "${_searchQuery.trim()}".',
+      );
+    }
+
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          final preparation = _filteredPreparations[index];
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 16),
+            child: _buildPreparationCard(preparation),
+          );
+        },
+        childCount: _filteredPreparations.length,
+      ),
+    );
+  }
+
+  Widget _buildEmptyState({
+    required String title,
+    required String message,
+  }) {
+    return SliverToBoxAdapter(
+      child: Container(
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          color: AppColors.card,
+          borderRadius: BorderRadius.circular(24),
+          border: Border.all(color: AppColors.border),
+        ),
+        child: Column(
+          children: [
+            Icon(
+              Icons.search_off,
+              size: 44,
+              color: AppColors.primary.withValues(alpha: 0.55),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: AppColors.foreground,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              message,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 14,
+                color: AppColors.mutedForeground.withValues(alpha: 0.85),
+                height: 1.45,
+              ),
             ),
           ],
         ),

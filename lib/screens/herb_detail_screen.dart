@@ -1,5 +1,13 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:printing/printing.dart';
+
 import '../data/herbs_data.dart';
+import '../models/herb.dart';
 import '../theme/app_colors.dart';
 import '../utils/storage.dart';
 import '../widgets/educational_disclaimer_card.dart';
@@ -16,6 +24,7 @@ class HerbDetailScreen extends StatefulWidget {
 
 class _HerbDetailScreenState extends State<HerbDetailScreen> {
   bool _isFavorite = false;
+  bool _isExportingPdf = false;
 
   @override
   void initState() {
@@ -39,6 +48,213 @@ class _HerbDetailScreenState extends State<HerbDetailScreen> {
         _isFavorite = newStatus;
       });
     }
+  }
+
+  Future<void> _exportToPdf(Herb herb) async {
+    if (_isExportingPdf) {
+      return;
+    }
+
+    setState(() {
+      _isExportingPdf = true;
+    });
+
+    try {
+      final bytes = await _buildHerbPdf(herb);
+      await Printing.sharePdf(
+        bytes: bytes,
+        filename: '${_buildPdfFileName(herb.name)}.pdf',
+      );
+    } catch (e, st) {
+      debugPrint('PDF export failed: $e');
+      debugPrintStack(stackTrace: st);
+      if (!mounted) {
+        return;
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Unable to create the PDF right now.'),
+        ),
+      );
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isExportingPdf = false;
+        });
+      }
+    }
+  }
+
+  Future<Uint8List> _buildHerbPdf(Herb herb) async {
+    final unicodeFont = pw.Font.ttf(
+      (await rootBundle.load('assets/fonts/NotoSans-Regular.ttf'))
+          .buffer
+          .asByteData(),
+    );
+    final document = pw.Document(
+      theme: pw.ThemeData.withFont(
+        base: unicodeFont,
+        bold: unicodeFont,
+        italic: unicodeFont,
+        boldItalic: unicodeFont,
+      ),
+    );
+
+    document.addPage(
+      pw.MultiPage(
+        pageTheme: const pw.PageTheme(
+          margin: pw.EdgeInsets.all(28),
+        ),
+        build: (context) => [
+          pw.Container(
+            padding: const pw.EdgeInsets.all(20),
+            decoration: pw.BoxDecoration(
+              borderRadius: pw.BorderRadius.circular(16),
+              color: PdfColors.green50,
+              border: pw.Border.all(color: PdfColors.green200),
+            ),
+            child: pw.Column(
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: [
+                pw.Text(
+                  herb.name,
+                  style: pw.TextStyle(
+                    fontSize: 26,
+                    fontWeight: pw.FontWeight.bold,
+                    color: PdfColors.green900,
+                  ),
+                ),
+                pw.SizedBox(height: 4),
+                pw.Text(
+                  herb.scientificName,
+                  style: pw.TextStyle(
+                    fontSize: 13,
+                    fontStyle: pw.FontStyle.italic,
+                    color: PdfColors.green700,
+                  ),
+                ),
+                pw.SizedBox(height: 12),
+                pw.Text(
+                  herb.briefDescription,
+                  style: const pw.TextStyle(fontSize: 12, height: 1.5),
+                ),
+              ],
+            ),
+          ),
+          pw.SizedBox(height: 18),
+          _pdfSection(title: 'About', content: herb.detailedInformation),
+          _pdfSection(title: 'Traditional Uses', content: herb.traditionalUses),
+          _pdfSection(
+              title: 'Modern Applications', content: herb.modernApplications),
+          _pdfBulletSection(
+              title: 'Primary Benefits', items: herb.primaryBenefits),
+          _pdfBulletSection(title: 'Common Names', items: herb.commonNames),
+          _pdfBulletSection(
+              title: 'Active Compounds', items: herb.activeCompounds),
+          _pdfSection(title: 'How to Use', content: herb.howToUse),
+          _pdfSection(title: 'Dosage', content: herb.dosage),
+          _pdfSection(title: 'Best Time to Take', content: herb.bestTimeToTake),
+          _pdfSection(title: 'Duration', content: herb.duration),
+          _pdfSection(
+              title: 'Contraindications', content: herb.contraindications),
+          _pdfSection(title: 'Side Effects', content: herb.sideEffects),
+          _pdfSection(
+              title: 'Drug Interactions', content: herb.drugInteractions),
+          _pdfSection(
+              title: 'Pregnancy Warning', content: herb.pregnancyWarning),
+          _pdfSection(title: 'Nursing Warning', content: herb.nursingWarning),
+          _pdfSection(title: 'Storage', content: herb.storage),
+          _pdfSection(title: 'Shelf Life', content: herb.shelfLife),
+          _pdfBulletSection(title: 'Related Herbs', items: herb.relatedHerbs),
+        ],
+      ),
+    );
+
+    return document.save();
+  }
+
+  pw.Widget _pdfSection({required String title, required String content}) {
+    return pw.Container(
+      margin: const pw.EdgeInsets.only(bottom: 12),
+      padding: const pw.EdgeInsets.all(16),
+      decoration: pw.BoxDecoration(
+        borderRadius: pw.BorderRadius.circular(12),
+        border: pw.Border.all(color: PdfColors.grey300),
+      ),
+      child: pw.Column(
+        crossAxisAlignment: pw.CrossAxisAlignment.start,
+        children: [
+          pw.Text(
+            title,
+            style: pw.TextStyle(
+              fontSize: 14,
+              fontWeight: pw.FontWeight.bold,
+              color: PdfColors.green900,
+            ),
+          ),
+          pw.SizedBox(height: 8),
+          pw.Text(
+            content,
+            style: const pw.TextStyle(fontSize: 11, height: 1.5),
+          ),
+        ],
+      ),
+    );
+  }
+
+  pw.Widget _pdfBulletSection({
+    required String title,
+    required List<String> items,
+  }) {
+    return pw.Container(
+      margin: const pw.EdgeInsets.only(bottom: 12),
+      padding: const pw.EdgeInsets.all(16),
+      decoration: pw.BoxDecoration(
+        borderRadius: pw.BorderRadius.circular(12),
+        border: pw.Border.all(color: PdfColors.grey300),
+      ),
+      child: pw.Column(
+        crossAxisAlignment: pw.CrossAxisAlignment.start,
+        children: [
+          pw.Text(
+            title,
+            style: pw.TextStyle(
+              fontSize: 14,
+              fontWeight: pw.FontWeight.bold,
+              color: PdfColors.green900,
+            ),
+          ),
+          pw.SizedBox(height: 8),
+          ...items.map(
+            (item) => pw.Padding(
+              padding: const pw.EdgeInsets.only(bottom: 6),
+              child: pw.Row(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: [
+                  pw.Text('• ', style: const pw.TextStyle(fontSize: 11)),
+                  pw.Expanded(
+                    child: pw.Text(
+                      item,
+                      style: const pw.TextStyle(fontSize: 11, height: 1.4),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _buildPdfFileName(String input) {
+    final sanitized = input
+        .trim()
+        .toLowerCase()
+        .replaceAll(RegExp(r'[^a-z0-9]+'), '_')
+        .replaceAll(RegExp(r'^_+|_+$'), '');
+    return sanitized.isEmpty ? 'herb_details' : sanitized;
   }
 
   @override
@@ -69,6 +285,20 @@ class _HerbDetailScreenState extends State<HerbDetailScreen> {
               onPressed: () => Navigator.pop(context),
             ),
             actions: [
+              IconButton(
+                icon: _isExportingPdf
+                    ? const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: Colors.white,
+                        ),
+                      )
+                    : const Icon(Icons.picture_as_pdf, color: Colors.white),
+                tooltip: 'Export to PDF',
+                onPressed: _isExportingPdf ? null : () => _exportToPdf(herb),
+              ),
               IconButton(
                 icon: Icon(
                   _isFavorite ? Icons.favorite : Icons.favorite_border,
