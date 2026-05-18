@@ -83,12 +83,27 @@ class _GardensScreenState extends State<GardensScreen> {
   }
 
   Future<void> _openDirections(Garden garden) async {
-    final uri = Uri.parse('http://googleusercontent.com/maps.google.com/maps?daddr=${garden.lat},${garden.lng}');
-    bool didLaunch = await _launchUri(uri);
+    // We use the standard Google Maps URL scheme
+    final uri = Uri.parse('https://www.google.com/maps/search/?api=1&query=${garden.lat},${garden.lng}');
+
+    bool didLaunch = false;
+    
+    // Attempt to launch the maps URL
+    try {
+      didLaunch = await _launchUri(uri);
+    } catch (e) {
+      // Catch any exceptions thrown by url_launcher
+      debugPrint('Error launching map: $e');
+    }
+
     if (!mounted) return;
+
     if (!didLaunch) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Could not open maps on this device.'), duration: Duration(seconds: 2)),
+        const SnackBar(
+          content: Text('Could not open maps on this device.'),
+          duration: Duration(seconds: 2),
+        ),
       );
     }
   }
